@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
-  def index
+  def show
+    messages = Message.all
+    render json: messages
   end
 end
