@@ -1,4 +1,5 @@
 import Dispatcher from '../dispatcher'
+import _ from 'lodash'
 import BaseStore from '../base/store'
 import UserStore from '../stores/user'
 
@@ -67,10 +68,42 @@ const messages = {
     ],
   },
 }
-
-var openChatID = parseInt(Object.keys(messages)[0], 10)
+window._ = _ // TODO remove
+let openChatID = parseInt(Object.keys(messages)[0], 10)
+let jsonData
+const request = require('superagent')
+request
+  .get('http://localhost:3000/data')
+  .end(function(err, res) {
+    if (res.ok) {
+      jsonData = JSON.parse(res.text)
+      // console.log(jsonData)
+      // let contents = _.map(JSON.parse(jsonData), 'content')
+      // console.log('contents : ' + contents)
+      // console.log(_.where(jsonData, {id: 1}))
+      console.log('success')
+    } else {
+      console.error('error', err)
+    }
+    console.log('complete')
+  })
 
 class ChatStore extends BaseStore {
+  getAllJson() {
+    return jsonData
+  }
+  getAllContents() { // いるかな？（２つの）IDで検索形式のほうがいいかも？
+    if (jsonData == null) {
+      jsonData = []
+    }
+    return _.map(jsonData, 'content')
+  }
+  getContentsByUserIDs(currentUserID, recipientID) {
+    return _.filter(jsonData, function(j) {
+      return j.user_id === currentUserID || j.user_id === recipientID
+    })
+  }
+
   addChangeListener(callback) {
     this.on('change', callback)
   }
@@ -111,3 +144,22 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
 })
 
 export default MessagesStore
+
+// getAllData() {
+//   $.ajax({
+//     type: 'GET',
+//     url: 'http://localhost:3000/data',
+//     dataType: 'json',
+//     success: function(data) {
+//       // for (var i = 0; i < data.length; i++) {
+//       //   console.log(data[i].content)
+//       // }
+//       return data
+//     },
+//     error: function(jqXHR, textStatus, errorThrown) {
+//       // 通信エラー時のダイアログ表示
+//       console.log(jqXHR + '-' + textStatus + '-' + errorThrown)
+//       return null
+//     },
+//   })
+// }
