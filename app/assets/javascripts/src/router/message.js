@@ -1,11 +1,16 @@
 import ReactDecorator from '../base/react_decorator'
 import BaseRouter from '../base/router'
 import App from '../app'
+import MessagesAction from '../actions/messages'
 
 export default class CardRouter extends BaseRouter {
   register() {
-    this.route('/', this.decorateApp)
+    this.route('/', this.decorateApp, this.sendAllContents)
     // this.route('/', () => {console.log("hello")})
+  }
+
+  sendAllContents() {
+    MessagesAction.sendAllContents()
   }
 
   decorateApp(ctx, next) {
