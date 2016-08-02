@@ -1,5 +1,6 @@
 import request from 'superagent'
 import Dispatcher from '../dispatcher'
+import {APIEndpoints, CSRFToken} from '../constants/app'
 
 export default {
   changeOpenChat(newUserID) {
@@ -9,6 +10,18 @@ export default {
     })
   },
   sendMessage(userID, message) {
+    request
+    .post(APIEndpoints.MESSAGES)
+    .send({content: message, user_id: userID})
+    .set('X-CSRF-Token', CSRFToken())
+    .end(function(err, res) {
+      if (res.ok) {
+        console.log('success')
+      } else {
+        console.error('error', err)
+      }
+      console.log('complete')
+    })
     Dispatcher.handleViewAction({
       type: 'sendMessage',
       userID: userID,
@@ -18,7 +31,7 @@ export default {
   },
   sendAllContents() {
     request
-    .get('http://localhost:3000/data')
+    .get('http://localhost:3000/api/messages')
     .end(function(err, res) {
       if (res.ok) {
         const json = JSON.parse(res.text)

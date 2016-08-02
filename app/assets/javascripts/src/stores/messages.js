@@ -132,5 +132,5 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
   }
   actions[payload.action.type] && actions[payload.action.type](payload)
 })
-// window.MessagesStore = MessagesStore
+window.MessagesStore = MessagesStore
 export default MessagesStore
