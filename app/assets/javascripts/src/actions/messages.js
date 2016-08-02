@@ -16,22 +16,22 @@ export default {
     .set('X-CSRF-Token', CSRFToken())
     .end(function(err, res) {
       if (res.ok) {
-        console.log('success')
+        // console.log('success')
       } else {
         console.error('error', err)
       }
-      console.log('complete')
+      // console.log('complete')
     })
     Dispatcher.handleViewAction({
       type: 'sendMessage',
       userID: userID,
       message: message,
-      timestamp: +new Date(),
+      // timestamp: +new Date(),
     })
   },
   sendAllContents() {
     request
-    .get('http://localhost:3000/api/messages')
+    .get(APIEndpoints.MESSAGES)
     .end(function(err, res) {
       if (res.ok) {
         const json = JSON.parse(res.text)
@@ -39,11 +39,11 @@ export default {
           type: 'setAllContents',
           json: json,
         })
-        console.log('success')
+        // console.log('success')
       } else {
         console.error('error', err)
       }
-      console.log('complete')
+      // console.log('complete')
     })
   },
 }

@@ -1,7 +1,8 @@
 import Dispatcher from '../dispatcher'
 import _ from 'lodash'
 import BaseStore from '../base/store'
-import UserStore from '../stores/user'
+import MessagesAction from '../actions/messages'
+// import UserStore from '../stores/user'
 
 const messages = {
   2: {
@@ -116,13 +117,14 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       MessagesStore.emitChange()
     },
     sendMessage(payload) {
-      const userID = payload.action.userID
-      messages[userID].messages.push({
-        contents: payload.action.message,
-        timestamp: payload.action.timestamp,
-        from: UserStore.user.id,
-      })
-      messages[userID].lastAccess.currentUser = +new Date()
+      // const userID = payload.action.userID
+      // messages[userID].messages.push({
+      //   contents: payload.action.message,
+      //   timestamp: payload.action.timestamp,
+      //   from: UserStore.user.id,
+      // })
+      // messages[userID].lastAccess.currentUser = +new Date()
+      MessagesAction.sendAllContents() // 最新のDBのデータをjsonDataへ格納する
       MessagesStore.emitChange()
     },
     setAllContents(payload) {

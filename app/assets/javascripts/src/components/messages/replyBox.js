@@ -28,7 +28,7 @@ class ReplyBox extends React.Component {
   }
   handleKeyDown(e) {
     if (e.keyCode === 13) {
-      MessagesAction.sendMessage(MessagesStore.getOpenChatUserID(), this.state.value)
+      MessagesAction.sendMessage(1 /* MessagesStore.getOpenChatUserID() */, this.state.value) // TODO fix UserID
       this.setState({
         value: '',
       })
