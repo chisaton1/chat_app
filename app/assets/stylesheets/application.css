@@ -25,6 +25,92 @@ h1 {
 
 }
 
+a {
+  text-decoration: none;
+  color: #1f89e2;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #1b7ccd;
+}
+
+/* ヘッダー ================================ */
+.navbar {
+  height: 65px;
+  width: 100%;
+  background-color: rgba(34, 49, 52, 0.9);
+  top: 0;
+  right: 0;
+  left: 0;
+  position: fixed;
+  margin-bottom: 20px;
+}
+
+#logo {
+  float: left;
+  font-size: 1.7em;
+  padding-top: 12px;
+  margin: 0 25px;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+
+#logo a {
+  color: #fff;
+}
+
+#logo a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.header-right {
+  float: right;
+  margin: 0 auto;
+}
+
+.header-right a {
+  color: white;
+  display: block;
+  text-decoration: none;
+}
+
+.header-right li {
+  line-height: 65px;
+  padding: 0 18px;
+  float: left;
+  color: white;
+}
+
+.vertical-line {
+  height: 22px;
+  margin-top: 22px;
+  margin-right: -36px;
+  border-left: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.link-bg {
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: all 0.5s;
+}
+
+.link-bg:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* フッター ================================ */
+footer {
+  margin-top: 100px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #848484;
+}
+
+footer small {
+  float: left;
+}
+
  /* ボタン ================================ */
 .btn {
   width: 100%;
@@ -60,6 +146,7 @@ h1 {
 .wrapper {
   width: 40%;
   margin: auto;
+  padding-top: 30px;
 }
 
 .form-control {

@@ -9,4 +9,24 @@
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body
-    = yield
+    .navbar
+      .container
+        #logo= link_to "Chat App", "#"
+        - if user_signed_in?
+          %ul.header-right
+            %li= link_to "ユーザー一覧", "#"
+            %li= link_to "text", "#"
+            %li= link_to "ログアウト", "#", method: :delete
+        - else
+          %ul.header-right
+            %li= link_to "概要", "#"
+            %li= link_to "新規登録", "#"
+            %li= link_to "ログイン", "#"
+    .container
+      %p.alert.alert-success= notice
+      %p.alert.alert-danger= alert
+      = yield
+    .container
+      %footer.footer
+        .small
+          &copy; C.N.
