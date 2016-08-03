@@ -122,7 +122,7 @@ footer small {
 .btn {
   width: 100%;
   padding: 8px 24px;
-  margin-top: 10px;
+  margin: 20px 0;
   color: white;
   display: inline-block;
   opacity: 0.8;
@@ -169,3 +169,33 @@ footer small {
   background-image: none;
   border: 1px solid #ccc;
 }
+
+/*　エラーメッセージ　*/
+
+.alert {
+  margin-bottom: 20px;
+  border-radius: 4px;
+  line-height: 40px;
+  padding-left: 15px;
+  font-size: small;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+}
+
+.alert-danger {
+  background-color: #f2dede;
+  color: #a94442;
+}
+
+.alert-danger ul li {
+  list-style-type: disc;
+ }
+
+ #error_explanation {
+  color: #a94442;
+  /*background-color: #f2dede;*/
+  margin-bottom: 15px;
+ }

@@ -5,7 +5,7 @@ import MessagesAction from '../actions/messages'
 
 export default class CardRouter extends BaseRouter {
   register() {
-    this.route('/', this.decorateApp, this.sendAllContents)
+    this.route('/messages', this.decorateApp, this.sendAllContents) // ここのパス設定ちゃんとあわせてね
     // this.route('/', () => {console.log("hello")})
   }
 

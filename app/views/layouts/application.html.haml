@@ -11,17 +11,17 @@
   %body
     .navbar
       .container
-        #logo= link_to "Chat App", "#"
+        #logo= link_to "Chat App", root_path
         - if user_signed_in?
           %ul.header-right
-            %li= link_to "ユーザー一覧", "#"
-            %li= link_to "text", "#"
-            %li= link_to "ログアウト", "#", method: :delete
+            %li= link_to "ユーザー一覧", users_path
+            %li= link_to "チャット", messages_path
+            %li= link_to "ログアウト", destroy_user_session_path, method: :delete
         - else
           %ul.header-right
             %li= link_to "概要", "#"
-            %li= link_to "新規登録", "#"
-            %li= link_to "ログイン", "#"
+            %li= link_to "新規登録", new_user_registration_path
+            %li= link_to "ログイン", new_user_session_path
     .container
       %p.alert.alert-success= notice
       %p.alert.alert-danger= alert
