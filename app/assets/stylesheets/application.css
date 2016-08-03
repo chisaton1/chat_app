@@ -37,7 +37,7 @@ a:hover {
 
 /* ヘッダー ================================ */
 .navbar {
-  height: 65px;
+  height: 59px;
   width: 100%;
   background-color: rgba(34, 49, 52, 0.9);
   top: 0;
@@ -50,10 +50,17 @@ a:hover {
 #logo {
   float: left;
   font-size: 1.7em;
-  padding-top: 12px;
-  margin: 0 25px;
+  /*padding-top: 12px;*/
+  line-height: 59px;
+  height: 59px;
+  margin: 0 15px;
+  /*margin: 0 25px;*/
   letter-spacing: -1px;
   font-weight: bold;
+}
+
+#logo {
+  cursor: pointer;
 }
 
 #logo a {
@@ -77,7 +84,7 @@ a:hover {
 }
 
 .header-right li {
-  line-height: 65px;
+  line-height: 59px;
   padding: 0 18px;
   float: left;
   color: white;
@@ -100,7 +107,7 @@ a:hover {
 }
 
 /* フッター ================================ */
-footer {
+/*footer {
   margin-top: 100px;
   padding-top: 5px;
   border-top: 1px solid #eaeaea;
@@ -109,7 +116,7 @@ footer {
 
 footer small {
   float: left;
-}
+}*/
 
  /* ボタン ================================ */
 .btn {
