@@ -41,7 +41,7 @@ class MessagesBox extends React.Component {
   render() {
     // const messagesLength = this.state.messages.length
     // const currentUserID = UserStore.user.id
-    const contents = MessagesStore.getContentsByUserIDs(this.state.currentUserID, 2)
+    const contents = MessagesStore.getContentsByUserIDs(this.state.currentUserID, 2) // TODO fix
     // const allMessages = this.state.messages
     // console.log(allMessages.length)
     // console.log(this.state.currentUserID)
