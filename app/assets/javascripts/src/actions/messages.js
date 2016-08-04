@@ -9,27 +9,26 @@ export default {
       userID: newUserID,
     })
   },
-  sendMessage(userID, message) {
+  sendMessage(userID, message, toUserID) {
     request
     .post(APIEndpoints.MESSAGES)
-    .send({content: message, user_id: userID})
+    .send({content: message, user_id: userID, to_user_id: toUserID})
     .set('X-CSRF-Token', CSRFToken())
     .end(function(err, res) {
       if (res.ok) {
-        // console.log('success')
       } else {
         console.error('error', err)
       }
-      // console.log('complete')
     })
-    Dispatcher.handleViewAction({
+    Dispatcher.handleViewAction({ // jsonDataの変更を反映させる
       type: 'sendMessage',
       userID: userID,
       message: message,
+      toUserID: toUserID,
       // timestamp: +new Date(),
     })
   },
-  sendAllContents() {
+  getAllContents() {
     request
     .get(APIEndpoints.MESSAGES)
     .end(function(err, res) {
@@ -39,11 +38,24 @@ export default {
           type: 'setAllContents',
           json: json,
         })
-        // console.log('success')
       } else {
         console.error('error', err)
       }
-      // console.log('complete')
+    })
+  },
+  getCurrentUserInfo() {
+    request
+    .get(APIEndpoints.CURRENTUSER)
+    .end(function(err, res) {
+      if (res.ok) {
+        const json = JSON.parse(res.text)
+        Dispatcher.handleViewAction({
+          type: 'setCurrentUserInfo',
+          json: json,
+        })
+      } else {
+        console.error('error', err)
+      }
     })
   },
 }

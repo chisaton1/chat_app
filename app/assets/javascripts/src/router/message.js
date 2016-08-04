@@ -5,13 +5,18 @@ import MessagesAction from '../actions/messages'
 
 export default class CardRouter extends BaseRouter {
   register() {
-    this.route('/messages', this.decorateApp, this.sendAllContents) // ここのパス設定ちゃんとあわせてね
+    this.route('/messages', this.decorateApp, this.setAllData) // ここのパス設定ちゃんとあわせてね
     // this.route('/', () => {console.log("hello")})
   }
 
-  sendAllContents() {
-    MessagesAction.sendAllContents()
+  setAllData() {
+    MessagesAction.getAllContents()
+    MessagesAction.getCurrentUserInfo()
   }
+
+  // getCurrentUserInfo() {
+  //   MessagesAction.getCurrentUserInfo()
+  // }
 
   decorateApp(ctx, next) {
     (new ReactDecorator()).decorate('react-main', App)

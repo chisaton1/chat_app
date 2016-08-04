@@ -72,23 +72,27 @@ const messages = {
 window._ = _ // TODO remove
 let openChatID = parseInt(Object.keys(messages)[0], 10)
 let jsonData = []
+let currentUserInfo = []
 
 class ChatStore extends BaseStore {
   getAllJson() {
     return jsonData
   }
-  getAllContents() { // いるかな？（２つの）IDで検索形式のほうがいいかも？
-    return _.map(jsonData, 'content')
-  }
+  // getAllContents() { // いるかな？（２つの）IDで検索形式のほうがいいかも？
+  //   return _.map(jsonData, 'content')
+  // }
   getContentsByUserIDs(currentUserID, recipientID) {
     return _.filter(jsonData, function(j1) {
       return j1.user_id === currentUserID || j1.user_id === recipientID
     })
   }
-  getLastContent() {
-    return _.find(jsonData, function(j2) {
-      return j2.id === jsonData.length
-    })
+  // getLastContent() {
+  //   return _.find(jsonData, function(j2) {
+  //     return j2.id === jsonData.length
+  //   })
+  // }
+  getCurrentUseID() {
+    return currentUserInfo.id
   }
   addChangeListener(callback) {
     this.on('change', callback)
@@ -124,11 +128,15 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       //   from: UserStore.user.id,
       // })
       // messages[userID].lastAccess.currentUser = +new Date()
-      MessagesAction.sendAllContents() // 最新のDBのデータをjsonDataへ格納する
+      MessagesAction.getAllContents() // 最新のDBのデータをjsonDataへ格納する
       MessagesStore.emitChange()
     },
     setAllContents(payload) {
       jsonData = payload.action.json
+      MessagesStore.emitChange()
+    },
+    setCurrentUserInfo(payload) {
+      currentUserInfo = payload.action.json
       MessagesStore.emitChange()
     },
   }

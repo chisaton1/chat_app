@@ -1,6 +1,7 @@
 import React from 'react'
 // import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
+import MessagesStore from '../../stores/messages'
 
 class ReplyBox extends React.Component {
 
@@ -28,7 +29,7 @@ class ReplyBox extends React.Component {
   }
   handleKeyDown(e) {
     if (e.keyCode === 13) {
-      MessagesAction.sendMessage(1 /* MessagesStore.getOpenChatUserID() */, this.state.value) // TODO fix UserID
+      MessagesAction.sendMessage(MessagesStore.getCurrentUseID(), this.state.value, 2) // TODO fix toUserID
       this.setState({
         value: '',
       })

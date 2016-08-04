@@ -18,7 +18,11 @@ class MessagesBox extends React.Component {
   }
   getStateFromStore() {
     // return MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID())
-    return { messages: MessagesStore.getAllJson() } // stateは連想配列でないとダメらしい
+    return {
+      messages: MessagesStore.getAllJson(),
+      currentUserID: MessagesStore.getCurrentUseID(),
+      // currentUserID: MessagesStore.getCurrentUseID(),
+    } // stateは連想配列でないとダメらしい
     // const chatObj = MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID()),
     // return {
     //   messages: chatObj.messages,
@@ -37,13 +41,14 @@ class MessagesBox extends React.Component {
   render() {
     // const messagesLength = this.state.messages.length
     // const currentUserID = UserStore.user.id
-    const contents = MessagesStore.getContentsByUserIDs(1, 2)
+    const contents = MessagesStore.getContentsByUserIDs(this.state.currentUserID, 2)
     // const allMessages = this.state.messages
     // console.log(allMessages.length)
+    // console.log(this.state.currentUserID)
     const msg = contents.map((c, index) => {
       const messageClasses = classNames({
         'message-box__item': true,
-        'message-box__item--from-current': c.user_id === 1, // ここで自分か相手のメッセージかを分けている
+        'message-box__item--from-current': c.user_id === this.state.currentUserID, // ここで自分か相手のメッセージかを分けている
         'clear': true,
       })
       return (

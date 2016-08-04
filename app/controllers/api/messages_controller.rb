@@ -5,11 +5,8 @@ class Api::MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(content: params[:content], user_id: params[:user_id])
-    if @message.save
-      render json: @message #for comfirmation
-    else
-      render text: "error"
-    end
+    @message = Message.new(content: params[:content], user_id: params[:user_id], to_user_id: params[:to_user_id])
+    @message.save
+    redirect_to messages_path
   end
 end

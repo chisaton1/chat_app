@@ -15,7 +15,7 @@
         - if user_signed_in?
           %ul.header-right
             %li= link_to "ユーザー一覧", users_path
-            %li= link_to "チャット", messages_path
+            %li= link_to "チャット", messages_path, data: {no_turbolink: true}
             %li= link_to "ログアウト", destroy_user_session_path, method: :delete
         - else
           %ul.header-right
