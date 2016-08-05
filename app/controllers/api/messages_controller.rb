@@ -1,5 +1,5 @@
 class Api::MessagesController < ApplicationController
-  def index
+  def index # TODO current_userに基づいた情報のみ取ってくる
     @messages = Message.all
     render json: @messages
   end

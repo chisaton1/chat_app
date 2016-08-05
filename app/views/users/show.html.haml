@@ -1,5 +1,14 @@
-%h1 Users#show
-%p Find me in app/views/users/show.html.haml
-%p= @user.id
-%p= @user.name
-%p= @user.email
+.wrapper
+  .profile-wrapper
+    %h1 マイページ
+    %p プロフィール画面
+    - if @user.image
+      =image_tag "/user_images/#{@user.image}"
+    - else
+      =image_tag 'gopher.png'
+    - name =@user.name
+    - email = @user.email
+    %p 名前: #{name}
+    %p メールアドレス: #{email}
+    %p= link_to "プロフィールを編集する", edit_user_registration_path
+    %p= link_to "退会する", edit_user_registration_path

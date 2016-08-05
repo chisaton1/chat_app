@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   # end
   root 'home#new'
   get 'messages' => 'messages#index'
-  devise_for :users
+  devise_for :users, :controllers => {
+    :registrations => "users/registrations",  
+  }
   resources :users, only: [:index, :show, :edit, :update]
   namespace :api do
     resources :messages, only: [:index, :create ]

@@ -15,6 +15,7 @@
  */
 
  body {
+  overflow: auto;
   /*text-align: center;*/
   padding-top: 70px;
   /*color: #364a4d;*/
@@ -45,6 +46,7 @@ a:hover {
   left: 0;
   position: fixed;
   margin-bottom: 20px;
+  z-index: 10;
 }
 
 #logo {
@@ -153,7 +155,8 @@ footer small {
 .wrapper {
   width: 40%;
   margin: auto;
-  padding-top: 30px;
+  /*position: relative;*/
+  /*padding-top: 10px;*/
 }
 
 .form-control {
@@ -199,3 +202,20 @@ footer small {
   /*background-color: #f2dede;*/
   margin-bottom: 15px;
  }
+
+/*プロフィール画面*/
+
+img {
+  width: 40%;
+  height: auto;
+  text-align: center;
+  margin: 10px 0;
+}
+
+p {
+  font-size: 18px;
+}
+
+.profile-wrapper {
+  text-align: center;
+}
