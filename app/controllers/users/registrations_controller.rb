@@ -11,9 +11,14 @@ def update
     file_name = file.original_filename
     File.open("public/user_images/#{file_name}", 'wb'){|f| f.write(file.read)}
     @user.image = file_name
-    @user.save
   end
-  redirect_to current_user
+  name = params[:user][:name]
+  if !name.nil?
+    @user.name = name
+  end
+  @user.save
+  super
+  # redirect_to current_user
 end
 
 protected
