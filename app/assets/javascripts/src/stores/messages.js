@@ -2,7 +2,7 @@ import Dispatcher from '../dispatcher'
 import _ from 'lodash'
 import BaseStore from '../base/store'
 import MessagesAction from '../actions/messages'
-// import UserStore from '../stores/user'
+// import UsersStore from '../stores/user'
 
 const messages = {
   2: {
@@ -71,18 +71,26 @@ const messages = {
 }
 window._ = _ // TODO remove
 let openChatID = parseInt(Object.keys(messages)[0], 10)
-let jsonData = []
-let currentUserInfo = []
+// let currentUserJsonData = []
+// let currentUserInfo = []
 
 class ChatStore extends BaseStore {
-  getAllJson() {
-    return jsonData
+  getCurrentUserJsonData() {
+    if (!this.get('currentUserJsonData')) this.setCurrentUserJsonData([])
+    return this.get('currentUserJsonData')
   }
+
+  setCurrentUserJsonData(array) {
+    this.set('currentUserJsonData', array)
+  }
+  // getAllJson() {
+  //   return jsonData
+  // }
   // getAllContents() { // いるかな？（２つの）IDで検索形式のほうがいいかも？
   //   return _.map(jsonData, 'content')
   // }
   getContentsByUserIDs(currentUserID, recipientID) {
-    return _.filter(jsonData, function(j1) {
+    return _.filter(this.getCurrentUserJsonData(), function(j1) {
       return j1.user_id === currentUserID || j1.user_id === recipientID
     })
   }
@@ -91,9 +99,9 @@ class ChatStore extends BaseStore {
   //     return j2.id === jsonData.length
   //   })
   // }
-  getCurrentUseID() {
-    return currentUserInfo.id
-  }
+  // getCurrentUserID() {
+  //   return currentUserInfo.id
+  // }
   addChangeListener(callback) {
     this.on('change', callback)
   }
@@ -128,19 +136,21 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       //   from: UserStore.user.id,
       // })
       // messages[userID].lastAccess.currentUser = +new Date()
-      MessagesAction.getAllContents() // 最新のDBのデータをjsonDataへ格納する
+      MessagesAction.getAllContents() // 最新のDBのデータをcurrentUserJsonDataへ格納する
       MessagesStore.emitChange()
+      // UsersStore.emitChange()
     },
     setAllContents(payload) {
-      jsonData = payload.action.json
+      MessagesStore.setCurrentUserJsonData(payload.action.json)
+      // jsonData = payload.action.json
       MessagesStore.emitChange()
     },
-    setCurrentUserInfo(payload) {
-      currentUserInfo = payload.action.json
-      MessagesStore.emitChange()
-    },
+    // setCurrentUserInfo(payload) {
+    //   currentUserInfo = payload.action.json
+    //   MessagesStore.emitChange()
+    // },
   }
   actions[payload.action.type] && actions[payload.action.type](payload)
 })
-window.MessagesStore = MessagesStore
+window.MessagesStore = MessagesStore // TODO remove
 export default MessagesStore

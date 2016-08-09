@@ -3,6 +3,7 @@ import React from 'react'
 import classNames from 'classNames'
 import MessagesStore from '../../stores/messages'
 import ReplyBox from '../../components/messages/replyBox'
+import UsersStore from '../../stores/user'
 // import UserStore from '../../stores/user'
 // import Utils from '../../utils'
 
@@ -18,10 +19,10 @@ class MessagesBox extends React.Component {
   }
   getStateFromStore() {
     // return MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID())
+    // const currentUserID = UsersStore.getCurrentUserID()
     return {
-      messages: MessagesStore.getAllJson(),
-      currentUserID: MessagesStore.getCurrentUseID(),
-      // currentUserID: MessagesStore.getCurrentUseID(),
+      messages: MessagesStore.getCurrentUserJsonData(),
+      currentUser: UsersStore.getCurrentUser(),
     } // stateは連想配列でないとダメらしい
     // const chatObj = MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID()),
     // return {
@@ -41,14 +42,15 @@ class MessagesBox extends React.Component {
   render() {
     // const messagesLength = this.state.messages.length
     // const currentUserID = UserStore.user.id
-    const contents = MessagesStore.getContentsByUserIDs(this.state.currentUserID, 2) // TODO fix
+    // const contents = MessagesStore.getContentsByUserIDs(this.state.currentUserID, 2) // TODO fix
     // const allMessages = this.state.messages
     // console.log(allMessages.length)
     // console.log(this.state.currentUserID)
-    const msg = contents.map((c, index) => {
+    const msg = this.state.messages.map((c, index) => {
+      // console.log(this.state.currentUser.id)
       const messageClasses = classNames({
         'message-box__item': true,
-        'message-box__item--from-current': c.user_id === this.state.currentUserID, // ここで自分か相手のメッセージかを分けている
+        'message-box__item--from-current': c.user_id === this.state.currentUser.id,
         'clear': true,
       })
       return (
@@ -120,5 +122,4 @@ class MessagesBox extends React.Component {
     )
   }
 }
-
 export default MessagesBox

@@ -1,6 +1,6 @@
 class Api::MessagesController < ApplicationController
   def index # TODO current_userに基づいた情報のみ取ってくる
-    @messages = Message.all
+    @messages = Message.all.where("user_id = #{current_user.id} or to_user_id = #{current_user.id}")
     render json: @messages
   end
 

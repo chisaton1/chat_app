@@ -4,7 +4,8 @@ export const Root = window.location.origin || `${window.location.protocol}//${wi
 export const APIRoot = `${Root}/api`
 export const APIEndpoints = {
   MESSAGES: APIRoot + '/messages',
-  CURRENTUSER: APIRoot + '/current_user',
+  CURRENT_USER: APIRoot + '/current_user',
+  USERS: APIRoot + '/users',
 }
 
 // export const ActionTypes = keyMirror({

@@ -43,19 +43,19 @@ export default {
       }
     })
   },
-  getCurrentUserInfo() {
-    request
-    .get(APIEndpoints.CURRENTUSER)
-    .end(function(err, res) {
-      if (res.ok) {
-        const json = JSON.parse(res.text)
-        Dispatcher.handleViewAction({
-          type: 'setCurrentUserInfo',
-          json: json,
-        })
-      } else {
-        console.error('error', err)
-      }
-    })
-  },
+  // getCurrentUserInfo() {
+  //   request
+  //   .get(APIEndpoints.CURRENT_USER)
+  //   .end(function(err, res) {
+  //     if (res.ok) {
+  //       const json = JSON.parse(res.text)
+  //       Dispatcher.handleViewAction({
+  //         type: 'setCurrentUserInfo',
+  //         json: json,
+  //       })
+  //     } else {
+  //       console.error('error', err)
+  //     }
+  //   })
+  // },
 }

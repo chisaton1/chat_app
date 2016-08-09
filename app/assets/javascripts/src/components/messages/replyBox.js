@@ -1,7 +1,8 @@
 import React from 'react'
 // import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
-import MessagesStore from '../../stores/messages'
+// import MessagesStore from '../../stores/messages'
+import UsersStore from '../../stores/user'
 
 class ReplyBox extends React.Component {
 
@@ -29,19 +30,17 @@ class ReplyBox extends React.Component {
   }
   handleKeyDown(e) {
     if (e.keyCode === 13) {
-      MessagesAction.sendMessage(MessagesStore.getCurrentUseID(), this.state.value, 2) // TODO fix toUserID
+      MessagesAction.sendMessage(UsersStore.getCurrentUser().id, this.state.value, 2) // TODO fix toUserID
       this.setState({
         value: '',
       })
     }
   }
-
   updateValue(e) {
     this.setState({
       value: e.target.value,
     })
   }
-
   render() {
     return (
       <div className='reply-box'>
