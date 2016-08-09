@@ -79,7 +79,6 @@ class ChatStore extends BaseStore {
     if (!this.get('currentUserJsonData')) this.setCurrentUserJsonData([])
     return this.get('currentUserJsonData')
   }
-
   setCurrentUserJsonData(array) {
     this.set('currentUserJsonData', array)
   }
@@ -119,8 +118,6 @@ class ChatStore extends BaseStore {
   }
 }
 const MessagesStore = new ChatStore()
-
-// const request = require('superagent')
 MessagesStore.dispatchToken = Dispatcher.register(payload => {
   const actions = {
     updateOpenChatID(payload) {

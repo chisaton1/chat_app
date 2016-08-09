@@ -59,21 +59,24 @@ export default class SearchBox extends React.Component {
       // })
       return (
         <li>
-          <div>
+          <div className='user-name'>
             { user.name }
           </div>
         </li>
       )
     })
     return (
-      <div className='reply-box'>
-        <input
-          value={ this.state.value }
-          // onKeyDown={ this.handleKeyDown }
-          onChange={ this.updateValue }
-          className='reply-box__input'
-          placeholder='Search users'
-        />
+      <div className='wrapper'>
+        <h1>ユーザー検索</h1>
+        <div className='reply-box search-box'>
+          <input
+            value={ this.state.value }
+            // onKeyDown={ this.handleKeyDown }
+            onChange={ this.updateValue }
+            className='reply-box__input'
+            placeholder='Search users'
+          />
+        </div>
         <ul className=''>
           { list }
         </ul>

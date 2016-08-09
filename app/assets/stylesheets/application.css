@@ -219,3 +219,20 @@ p {
 .profile-wrapper {
   text-align: center;
 }
+
+.search-box {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.user-name {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.user-name:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
