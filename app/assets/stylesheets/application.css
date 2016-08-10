@@ -220,19 +220,52 @@ p {
   text-align: center;
 }
 
+/*ユーザー検索ページ*/
+
 .search-box {
   border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
 }
 
 .user-name {
-  cursor: pointer;
+  /*cursor: pointer;*/
   background-color: rgba(0, 0, 0, 0.05);
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  /*border-right: 1px solid rgba(0, 0, 0, 0.1);*/
+  /*border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
+  padding: 10px;
+  display: inline-block;
+  width: 100%;
+  font-size: 18px;
 }
 
 .user-name:hover {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+/*button.chat-btn {
+  float: right;
+  background-color: #239b76;
+}*/
+button {
+  float: right;
+  margin: 0 30px;
+  background-color: #239b76;
+  padding: 8px 24px;
+  color: white;
+  opacity: 0.8;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #28b086;
+}
+
+span {
+  padding: 8px 60px;
+  float:left;
+  /*margin-left: 10px;*/
 }

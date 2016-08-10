@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804081615) do
+ActiveRecord::Schema.define(version: 20160809073625) do
+
+  create_table "friends", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "to_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "messages", force: :cascade do |t|
     t.text     "content"

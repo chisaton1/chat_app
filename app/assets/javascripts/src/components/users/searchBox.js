@@ -59,9 +59,12 @@ export default class SearchBox extends React.Component {
       // })
       return (
         <li>
-          <div className='user-name'>
+          <a className='user-name'>
             { user.name }
-          </div>
+          </a>
+          <form action='#' method='post' className='chat-btn'>
+            <button>この人とチャットをする</button>
+          </form>
         </li>
       )
     })
@@ -77,7 +80,7 @@ export default class SearchBox extends React.Component {
             placeholder='Search users'
           />
         </div>
-        <ul className=''>
+        <ul>
           { list }
         </ul>
       </div>
