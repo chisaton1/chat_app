@@ -32,9 +32,11 @@ class MessagesBox extends React.Component {
   }
   componentWillMount() {
     MessagesStore.onChange(this.onStoreChange.bind(this))
+    UsersStore.onChange(this.onStoreChange.bind(this))
   }
   componentWillUnmount() {
     MessagesStore.offChange(this.onStoreChange.bind(this))
+    UsersStore.offChange(this.onStoreChange.bind(this))
   }
   onStoreChange() {
     this.setState(this.getStateFromStore())
@@ -47,14 +49,13 @@ class MessagesBox extends React.Component {
     // console.log(allMessages.length)
     // console.log(this.state.currentUserID)
     const msg = this.state.messages.map((c, index) => {
-      // console.log(this.state.currentUser.id)
       const messageClasses = classNames({
         'message-box__item': true,
         'message-box__item--from-current': c.user_id === this.state.currentUser.id,
         'clear': true,
       })
       return (
-        <li className={ messageClasses }>
+        <li key={c.id} className={ messageClasses }>
           <div className='message-box__item__contents'>
             { c.content }
           </div>

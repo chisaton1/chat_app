@@ -4,7 +4,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
 def update
-  # binding.pry
   @user = current_user
   file = params[:user][:image]
   if !file.nil?

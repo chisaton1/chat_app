@@ -33,6 +33,21 @@ export default {
       }
     })
   },
+  getChatFriends() {
+    request
+    .get(APIEndpoints.FRIENDS)
+    .end(function(err, res) {
+      if (res.ok) {
+        const json = JSON.parse(res.text)
+        Dispatcher.handleViewAction({
+          type: 'setChatFriends',
+          json: json,
+        })
+      } else {
+        console.error('error', err)
+      }
+    })
+  },
 }
 // export default {
 //   changeOpenChat(newUserID) {

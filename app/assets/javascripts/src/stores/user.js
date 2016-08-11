@@ -1,5 +1,6 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
+// import _ from 'lodash'
 
 // const UserStore = {
 //   user: {
@@ -29,14 +30,33 @@ class UsersStore extends BaseStore {
   }
   findNameFromUsersList(typeString) {
     return this.getUsersList().filter((u, index) => {
-      // console.log(u.name)
-      // console.log(typeString)
       if (u.name.indexOf(typeString) >= 0) {
-        // console.log(u.name)
-        // console.log(index)
         return u
       }
     })
+  }
+  // findNameByUserID(userID) {
+  //   return _.find(this.getUsersList(), function(list) {
+  //     if (list.id === userID) {
+  //       // console.log(list.name)
+  //       return list.name
+  //     }
+  //   })
+  // }
+  // findNameByUserID(userID) {
+  //   return this.getUsersList().filter((u, index) => {
+  //     if (u.id === userID) {
+  //       console.log(u.name)
+  //       return u.name
+  //     }
+  //   })
+  // }
+  getChatFriendsList() {
+    if (!this.get('chatFriendsList')) this.setChatFriendsList([])
+    return this.get('chatFriendsList')
+  }
+  setChatFriendsList(array) {
+    this.set('chatFriendsList', array)
   }
   // getCurrentUserID() {
   //   return currentUserInfo.id
@@ -71,6 +91,10 @@ usersStore.dispatchToken = Dispatcher.register(payload => {
     },
     setAllUsers(payload) {
       usersStore.setUsersList(payload.action.json)
+      usersStore.emitChange()
+    },
+    setChatFriends(payload) {
+      usersStore.setChatFriendsList(payload.action.json)
       usersStore.emitChange()
     },
   }

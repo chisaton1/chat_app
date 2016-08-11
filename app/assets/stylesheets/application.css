@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require font-awesome
  */
 
  body {
@@ -209,7 +210,7 @@ img {
   width: 40%;
   height: auto;
   text-align: center;
-  margin: 10px 0;
+  /*margin: 10px 0;*/
 }
 
 p {
@@ -264,8 +265,8 @@ button:hover {
   background-color: #28b086;
 }
 
-span {
+.search-list {
   padding: 8px 60px;
   float:left;
-  /*margin-left: 10px;*/
+  cursor: pointer;
 }

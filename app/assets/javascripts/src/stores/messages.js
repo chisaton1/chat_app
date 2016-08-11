@@ -2,7 +2,7 @@ import Dispatcher from '../dispatcher'
 import _ from 'lodash'
 import BaseStore from '../base/store'
 import MessagesAction from '../actions/messages'
-// import UsersStore from '../stores/user'
+import UsersStore from '../stores/user'
 
 const messages = {
   2: {
@@ -70,7 +70,10 @@ const messages = {
   },
 }
 window._ = _ // TODO remove
-let openChatID = parseInt(Object.keys(messages)[0], 10)
+// const usersStore = UsersStore()
+// const friendsList = usersStore.getChatFrinedList()
+let openChatID = -1 // 初期画面は誰も選択されない (friendsList.length === 0) ? -1 : friendsList[0].id
+// parseInt(Object.keys(messages)[0], 10)
 // let currentUserJsonData = []
 // let currentUserInfo = []
 
@@ -81,6 +84,14 @@ class ChatStore extends BaseStore {
   }
   setCurrentUserJsonData(array) {
     this.set('currentUserJsonData', array)
+  }
+  // 渡されたIDと自分のIDに該当するメッセージの一番最後に投稿されたものをjsonで返す
+  getLastContent(userID) {
+    const currentUserID = UsersStore.getCurrentUser().id
+    return _.findLast(this.getCurrentUserJsonData(), function(json) {
+      return (json.to_user_id === userID && json.user_id === currentUserID) ||
+             (json.to_user_id === currentUserID && json.user_id === userID)
+    })
   }
   // getAllJson() {
   //   return jsonData
@@ -122,7 +133,8 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
   const actions = {
     updateOpenChatID(payload) {
       openChatID = payload.action.userID
-      messages[openChatID].lastAccess.currentUser = +new Date()
+      // console.log(openChatID)
+      // messages[openChatID].lastAccess.currentUser = +new Date()
       MessagesStore.emitChange()
     },
     sendMessage(payload) {
