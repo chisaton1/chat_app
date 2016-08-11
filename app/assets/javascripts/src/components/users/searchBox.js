@@ -1,6 +1,9 @@
 import React from 'react'
 import UsersStore from '../../stores/user'
+import {CSRFToken} from '../../constants/app'
+// import UserList from '../../components/messages/userList'
 // import MessagesStore from '../../stores/messages'
+import MessagesAction from '../../actions/messages'
 
 export default class SearchBox extends React.Component {
   constructor(props) {
@@ -16,6 +19,16 @@ export default class SearchBox extends React.Component {
       findUsersList: [],
     }
   }
+
+  componentWillMount() {
+    UsersStore.onChange(this.onStoreChange.bind(this))
+  }
+  componentWillUnmount() {
+    UsersStore.offChange(this.onStoreChange.bind(this))
+  }
+  onStoreChange() {
+    this.setState(this.getStateFromStore())
+  }
   // handleKeyDown(e) {
   //   if (e.keyCode != null) { // 何かをタイプした時（deleteキー含む）
   //     // 検索する
@@ -28,12 +41,22 @@ export default class SearchBox extends React.Component {
   //     // })
   //   }
   // }
+  getStateFromStore() {
+    return {
+      findUsersList: UsersStore.getUsersList(),
+    }
+  }
   updateValue(e) {
     this.setState({
       value: e.target.value,
       findUsersList: UsersStore.findNameFromUsersList(e.target.value),
       // usersList: UsersStore.getUsersList(),
     })
+  }
+  onClick(e) {
+    // const userList = UserList()
+    MessagesAction.changeOpenChat(e)
+    // userList.changeOpenChat(e)
   }
   // getStateFromStore() {
   //   return {
@@ -57,24 +80,46 @@ export default class SearchBox extends React.Component {
       //   'message-box__item--from-current': c.user_id === this.state.currentUserID,
       //   'clear': true,
       // })
+      // const userList = UserList()
       return (
-        <li>
-          <a className='user-name'>
-            { user.name }
-          </a>
-          <form action='#' method='post' className='chat-btn'>
-            <button>この人とチャットをする</button>
-          </form>
+        <li key={user.id}>
+          <div className='user-name'>
+            <a className='search-list'>
+              { user.name }
+            </a>
+            <form action={`/friend/${user.id}`} method='post' className='chat-btn'>
+              <button>この人とチャットをする</button>
+              <input type='hidden' name='authenticity_token' value={CSRFToken()}/>
+              <input type='hidden' name='get_frined_id' onClick={this.onClick.bind(this, user.id)}/>
+            </form>
+          </div>
         </li>
       )
     })
+    // <form action={`/friendships/${user.id}`} method='post'>
+    //   <input
+    //     type='hidden'
+    //     name='authenticity_token'
+    //     value={CSRFToken()}
+    //   />
+    //   <input
+    //     type='hidden'
+    //     name='_method'
+    //     value='delete'
+    //   />
+    //   <input
+    //     type='submit'
+    //     value='&#xf057;'
+    //     className='remove-chat-btn'
+    //     onClick={this.deleteChatConfirm.bind(this)}
+    //   />
+    // </form>
     return (
       <div className='wrapper'>
         <h1>ユーザー検索</h1>
         <div className='reply-box search-box'>
           <input
             value={ this.state.value }
-            // onKeyDown={ this.handleKeyDown }
             onChange={ this.updateValue }
             className='reply-box__input'
             placeholder='Search users'

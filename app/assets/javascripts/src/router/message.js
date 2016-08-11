@@ -13,6 +13,8 @@ export default class CardRouter extends BaseRouter {
   setAllData() {
     MessagesAction.getAllContents()
     UsersAction.getCurrentUserInfo()
+    UsersAction.getChatFriends()
+    // UsersAction.getAllUsersInfo()
   }
   decorateApp(ctx, next) {
     (new ReactDecorator()).decorate('react-main', App)
