@@ -4,7 +4,7 @@ import BaseStore from '../base/store'
 import MessagesAction from '../actions/messages'
 import UsersStore from '../stores/user'
 
-let openChatID = -1 // 初期画面は誰も選択されない (friendsList.length === 0) ? -1 : friendsList[0].id
+let openChatID = -1 // TODO 初期画面は誰も選択されない (friendsList.length === 0) ? -1 : friendsList[0].id
 class ChatStore extends BaseStore {
   getCurrentUserJsonData() {
     if (!this.get('currentUserJsonData')) this.setCurrentUserJsonData([])
