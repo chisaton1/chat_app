@@ -4,28 +4,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    # file = params[:user][:image]
-    # if !file.nil?
-    #   file_name = file.original_filename
-    #   File.open("public/user_images/#{file_name}", 'wb'){|f|f.write(file.read)}
-    #   @user.image = file_name
-    # end
   end
 
-  # def edit
-  #   @user = User.find(params[:id])
-  # end
-
-  # def edit
-  #   @user = current_user
-  #   @user.image_data = data
-  #   binding.pry
-  # end
-
-  # def update
-  # end
   def upload
-    # binding.pry
     file = params[:image]
     file_name = Time.zone.now.to_i.to_s + file.original_filename
     File.open("public/user_images/#{file_name}", 'wb'){|f| f.write(file.read)}
@@ -46,6 +27,4 @@ class UsersController < ApplicationController
         flash[:alert] = "アクセス出来ません"
       end
     end
-
-    # binding.pry
 end

@@ -1,29 +1,24 @@
 import React from 'react'
-// import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
 import MessagesStore from '../../stores/messages'
 import UsersStore from '../../stores/user'
 import {CSRFToken} from '../../constants/app'
 
 class ReplyBox extends React.Component {
-
   static get defaultProps() {
     return {
     }
   }
-
   static get propTypes() {
     return {
     }
   }
-
   constructor(props) {
     super(props)
     this.state = this.initialState
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.updateValue = this.updateValue.bind(this)
   }
-
   get initialState() {
     return {
       value: '',

@@ -2,7 +2,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
 
-
 def update
   @user = current_user
   file = params[:user][:image]
@@ -18,7 +17,6 @@ def update
   end
   @user.save
   super
-  # redirect_to current_user
 end
 
 protected
@@ -26,6 +24,7 @@ protected
   def after_update_path_for(resource)
     current_user
   end
+
   # GET /resource/sign_up
   # def new
   #   super
