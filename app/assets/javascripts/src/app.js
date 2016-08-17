@@ -1,5 +1,4 @@
 import React from 'react'
-// import Header from './components/messages/header'
 import UserList from './components/messages/userList'
 import MessagesBox from './components/messages/messagesBox'
 

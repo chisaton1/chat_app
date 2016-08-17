@@ -25,7 +25,6 @@ export default {
       userID: userID,
       message: message,
       toUserID: toUserID,
-      // timestamp: +new Date(),
     })
   },
   getAllContents() {
@@ -43,19 +42,4 @@ export default {
       }
     })
   },
-  // getCurrentUserInfo() {
-  //   request
-  //   .get(APIEndpoints.CURRENT_USER)
-  //   .end(function(err, res) {
-  //     if (res.ok) {
-  //       const json = JSON.parse(res.text)
-  //       Dispatcher.handleViewAction({
-  //         type: 'setCurrentUserInfo',
-  //         json: json,
-  //       })
-  //     } else {
-  //       console.error('error', err)
-  //     }
-  //   })
-  // },
 }

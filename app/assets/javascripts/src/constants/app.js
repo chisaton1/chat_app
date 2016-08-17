@@ -1,5 +1,3 @@
-// import keyMirror from 'keymirror'
-
 export const Root = window.location.origin || `${window.location.protocol}//${window.location.hostname}`
 export const APIRoot = `${Root}/api`
 export const APIEndpoints = {
