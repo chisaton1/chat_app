@@ -93,25 +93,12 @@ class ChatStore extends BaseStore {
              (json.to_user_id === currentUserID && json.user_id === userID)
     })
   }
-  // getAllJson() {
-  //   return jsonData
-  // }
-  // getAllContents() { // いるかな？（２つの）IDで検索形式のほうがいいかも？
-  //   return _.map(jsonData, 'content')
-  // }
   getContentsByUserIDs(currentUserID, recipientID) {
-    return _.filter(this.getCurrentUserJsonData(), function(j1) {
-      return j1.user_id === currentUserID || j1.user_id === recipientID
+    return _.filter(this.getCurrentUserJsonData(), function(j) {
+      return (j.user_id === currentUserID && j.to_user_id === recipientID) ||
+             (j.to_user_id === currentUserID && j.user_id === recipientID)
     })
   }
-  // getLastContent() {
-  //   return _.find(jsonData, function(j2) {
-  //     return j2.id === jsonData.length
-  //   })
-  // }
-  // getCurrentUserID() {
-  //   return currentUserInfo.id
-  // }
   addChangeListener(callback) {
     this.on('change', callback)
   }
