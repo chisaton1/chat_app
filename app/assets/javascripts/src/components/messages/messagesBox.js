@@ -42,13 +42,9 @@ class MessagesBox extends React.Component {
     this.setState(this.getStateFromStore())
   }
   render() {
-    // const messagesLength = this.state.messages.length
-    // const currentUserID = UserStore.user.id
-    // const contents = MessagesStore.getContentsByUserIDs(this.state.currentUserID, 2) // TODO fix
-    // const allMessages = this.state.messages
-    // console.log(allMessages.length)
-    // console.log(this.state.currentUserID)
-    const msg = this.state.messages.map((c, index) => {
+    const messages = MessagesStore.getContentsByUserIDs(this.state.currentUser.id, MessagesStore.getOpenChatUserID())
+    // superAgent使ってopenChatID渡してそれに該当するデータを取ってきてもらったほうが早いかもなぁ...
+    const msg = messages.map((c, index) => {
       const messageClasses = classNames({
         'message-box__item': true,
         'message-box__item--from-current': c.user_id === this.state.currentUser.id,

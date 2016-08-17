@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import MessagesStore from '../../stores/messages'
 import UsersStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
+import {CSRFToken} from '../../constants/app'
 
 class UserList extends React.Component {
 
@@ -48,6 +49,14 @@ class UserList extends React.Component {
   changeOpenChat(id) {
     MessagesAction.changeOpenChat(id)
   }
+  // deleteComfirm() {
+  //   let myRet = confirm('このリストから削除してよろしいですか？')
+  //   if (myRet == true) {
+  //     alert('')
+  //   } else {
+  //     alert('')
+  //   }
+  // }
   render() {
     this.state.messageList.sort((a, b) => {
       if (a.lastMessage.timestamp > b.lastMessage.timestamp) {
@@ -93,15 +102,12 @@ class UserList extends React.Component {
       if (UsersStore.getCurrentUser().updated_at < lastMessageDate) {
         isNewMessage = lastMessage.user_id !== UsersStore.getCurrentUser().id
       }
-      // console.log(this.state.openChatID)
-      // console.log(lastMessage.to_user_id)
       const itemClasses = classNames({
         'user-list__item': true,
         'clear': true,
         'user-list__item--new': isNewMessage,
         'user-list__item--active': this.state.openChatID === friend.id,
       })
-
       return (
         <li
           onClick={this.changeOpenChat.bind(this, friend.id)}
@@ -122,6 +128,11 @@ class UserList extends React.Component {
               { statusIcon } { lastMessage.content }
             </span>
           </div>
+          <form action={`/unfriend/${friend.id}`} className='chat-btn' method='post'>
+            <button id='delete-btn'>削除</button>
+            <input type='hidden' name='authenticity_token' value={CSRFToken()}/>
+            <input type='hidden' name='_method' value='delete'/>
+          </form>
         </li>
       )
     }, this)
