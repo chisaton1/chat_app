@@ -74,7 +74,13 @@ export default class SearchBox extends React.Component {
   // }
   render() {
     // const usersList = this.state.usersList
+    var userImage
     const list = this.state.findUsersList.map((user, index) => {
+      if (user.image == null) {
+        userImage = `/user_images/no-image.gif`
+      } else {
+        userImage = `/user_images/${user.image}`
+      }
       // const messageClasses = classNames({
       //   'message-box__item': true,
       //   'message-box__item--from-current': c.user_id === this.state.currentUserID,
@@ -84,6 +90,9 @@ export default class SearchBox extends React.Component {
       return (
         <li key={user.id}>
           <div className='user-name'>
+            <a className='user-list__item__picture'>
+              <img src={ userImage } />
+            </a>
             <a className='search-list'>
               { user.name }
             </a>

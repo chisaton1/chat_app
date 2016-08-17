@@ -50,10 +50,16 @@ class MessagesBox extends React.Component {
         'message-box__item--from-current': c.user_id === this.state.currentUser.id,
         'clear': true,
       })
+      var contentOrMessage
+      if (c.content != null) {
+        contentOrMessage = c.content
+      } else {
+        contentOrMessage = <img src={ `/user_images/${c.image}` } />
+      }
       return (
         <li key={c.id} className={ messageClasses }>
           <div className='message-box__item__contents'>
-            { c.content }
+            { contentOrMessage }
           </div>
         </li>
       )

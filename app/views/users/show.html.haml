@@ -5,7 +5,7 @@
     - if @user.image
       =image_tag "/user_images/#{@user.image}"
     - else
-      =image_tag 'gopher.png'
+      =image_tag '/user_images/no-image.gif'
     - name =@user.name
     - email = @user.email
     %p 名前: #{name}

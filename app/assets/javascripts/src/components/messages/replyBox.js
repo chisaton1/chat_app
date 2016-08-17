@@ -3,6 +3,7 @@ import React from 'react'
 import MessagesAction from '../../actions/messages'
 import MessagesStore from '../../stores/messages'
 import UsersStore from '../../stores/user'
+import {CSRFToken} from '../../constants/app'
 
 class ReplyBox extends React.Component {
 
@@ -30,7 +31,10 @@ class ReplyBox extends React.Component {
   }
   handleKeyDown(e) {
     if (e.keyCode === 13) {
-      MessagesAction.sendMessage(UsersStore.getCurrentUser().id, this.state.value, MessagesStore.getOpenChatUserID()) // TODO fix toUserID
+      MessagesAction.sendMessage(UsersStore.getCurrentUser().id,
+                                 this.state.value,
+                                 MessagesStore.getOpenChatUserID()
+                                )
       this.setState({
         value: '',
       })
@@ -54,6 +58,12 @@ class ReplyBox extends React.Component {
         <span className='reply-box__tip'>
           Press <span className='reply-box__tip__button'>Enter</span> to send
         </span>
+        <form action={`users/upload`} method='post' encType='multipart/form-data'>
+          <input type='hidden' name='authenticity_token' value={CSRFToken()}/>
+          <input type='file' name='image'/>
+          <input type='hidden' name='to_user_id' value={MessagesStore.getOpenChatUserID()}/>
+          <input type='submit' value='送信' className='submit_image'/>
+        </form>
       </div>
     )
   }

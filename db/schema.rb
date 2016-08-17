@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809073625) do
+ActiveRecord::Schema.define(version: 20160817070952) do
 
   create_table "friends", force: :cascade do |t|
     t.integer  "user_id"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20160809073625) do
     t.datetime "updated_at", null: false
     t.datetime "timestamp"
     t.integer  "to_user_id"
+    t.string   "image"
   end
 
   add_index "messages", ["user_id"], name: "index_messages_on_user_id"

@@ -1,11 +1,13 @@
 import React from 'react'
-import _ from 'lodash'
+// import _ from 'lodash'
 import classNames from 'classnames'
 // import Utils from '../../utils'
 import MessagesStore from '../../stores/messages'
 import UsersStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
 import {CSRFToken} from '../../constants/app'
+// import PublicEndPoints from '../../constants/app'
+// import APIEndpoints from '../../constants/app'
 
 class UserList extends React.Component {
 
@@ -18,17 +20,17 @@ class UserList extends React.Component {
     return this.getStateFromStore()
   }
   getStateFromStore() {
-    const allMessages = MessagesStore.getAllChats()
+    // const allMessages = MessagesStore.getAllChats()
     const messageList = []
     const friendsList = UsersStore.getChatFriendsList()
-    _.each(allMessages, (message) => {
-      const messagesLength = message.messages.length
-      messageList.push({
-        lastMessage: message.messages[messagesLength - 1],
-        lastAccess: message.lastAccess,
-        user: message.user,
-      })
-    })
+    // _.each(allMessages, (message) => {
+    //   const messagesLength = message.messages.length
+    //   messageList.push({
+    //     lastMessage: message.messages[messagesLength - 1],
+    //     lastAccess: message.lastAccess,
+    //     user: message.user,
+    //   })
+    // })
     return {
       openChatID: (friendsList.length === 0) ? -1 : MessagesStore.getOpenChatUserID(), // TODO fix ID
       messageList: messageList,
@@ -108,6 +110,12 @@ class UserList extends React.Component {
         'user-list__item--new': isNewMessage,
         'user-list__item--active': this.state.openChatID === friend.id,
       })
+      var userImage
+      if (friend.image == null) {
+        userImage = `/user_images/no-image.gif`
+      } else {
+        userImage = `/user_images/${friend.image}`
+      }
       return (
         <li
           onClick={this.changeOpenChat.bind(this, friend.id)}
@@ -115,7 +123,7 @@ class UserList extends React.Component {
           key={ friend.id }
         >
           <div className='user-list__item__picture'>
-            <img src={ friend.image } />
+            <img src={ userImage } />
           </div>
           <div className='user-list__item__details'>
             <h4 className='user-list__item__name'>
@@ -125,11 +133,12 @@ class UserList extends React.Component {
               </abbr>
             </h4>
             <span className='user-list__item__message'>
-              { statusIcon } { lastMessage.content }
+              { statusIcon }
+              { lastMessage.content }
             </span>
           </div>
           <form action={`/unfriend/${friend.id}`} className='chat-btn' method='post'>
-            <button id='delete-btn'>削除</button>
+            <button id='delete-btn'>リストから削除</button>
             <input type='hidden' name='authenticity_token' value={CSRFToken()}/>
             <input type='hidden' name='_method' value='delete'/>
           </form>

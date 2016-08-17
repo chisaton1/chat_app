@@ -9,10 +9,6 @@ export const APIEndpoints = {
   FRIENDS: APIRoot + '/friends',
 }
 
-// export const ActionTypes = keyMirror({
-//   SEND_ALL_CONTENTS: null,
-// })
-
 export function CSRFToken() {
   return document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 }

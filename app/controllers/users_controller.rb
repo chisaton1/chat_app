@@ -24,6 +24,15 @@ class UsersController < ApplicationController
 
   # def update
   # end
+  def upload
+    # binding.pry
+    file = params[:image]
+    file_name = Time.zone.now.to_i.to_s + file.original_filename
+    File.open("public/user_images/#{file_name}", 'wb'){|f| f.write(file.read)}
+    @content = Message.new(user_id: current_user.id, to_user_id: params[:to_user_id], image: file_name)
+    @content.save
+    redirect_to messages_path
+  end
 
   def index
     @user = User.all

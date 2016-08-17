@@ -7,7 +7,8 @@ def update
   @user = current_user
   file = params[:user][:image]
   if !file.nil?
-    file_name = file.original_filename
+    # 一意なファイル名を生成
+    file_name = Time.zone.now.to_i.to_s + file.original_filename
     File.open("public/user_images/#{file_name}", 'wb'){|f| f.write(file.read)}
     @user.image = file_name
   end
