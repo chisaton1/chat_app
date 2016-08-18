@@ -1,7 +1,6 @@
 import Dispatcher from '../dispatcher'
 import _ from 'lodash'
 import BaseStore from '../base/store'
-import MessagesAction from '../actions/messages'
 import UsersStore from '../stores/user'
 
 let openChatID = -1 // TODO 初期画面は誰も選択されない (friendsList.length === 0) ? -1 : friendsList[0].id
@@ -45,10 +44,31 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       MessagesStore.emitChange()
     },
     sendMessage(payload) {
-      MessagesAction.getAllContents() // 最新のDBのデータをcurrentUserJsonDataへ格納する
+      // debugger
+      // MessagesStore.setCurrentUserJsonData(payload.action)
+      const jsonData = MessagesStore.getCurrentUserJsonData()
+      // jsonDataはオブジェクト（参照型）なので再びsetする必要なし
+      jsonData.push({
+        user_id: payload.action.userID,
+        content: payload.action.message,
+        to_user_id: payload.action.toUserID,
+        created_at: payload.action.createdAt,
+      })
+      // MessagesAction.getAllContents() // 最新のDBのデータをcurrentUserJsonDataへ格納する
+      MessagesStore.emitChange()
+    },
+    sendImage(payload) {
+      const jsonData = MessagesStore.getCurrentUserJsonData()
+      jsonData.push({
+        user_id: payload.action.userID,
+        image: payload.action.image,
+        to_user_id: payload.action.toUserID,
+        created_at: payload.action.createdAt,
+      })
       MessagesStore.emitChange()
     },
     setAllContents(payload) {
+      // debugger
       MessagesStore.setCurrentUserJsonData(payload.action.json)
       MessagesStore.emitChange()
     },

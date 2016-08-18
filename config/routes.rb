@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # end
   root 'home#new'
   get 'messages' => 'messages#index'
+  # post 'api/messages' => 'api/messages#updateImage'
   post 'users/upload' => 'users#upload'
   post 'friend/:friend_id' => 'friends#friend', as: 'friend'
   delete 'unfriend/:friend_id' => 'friends#unfriend', as: 'unfriend'

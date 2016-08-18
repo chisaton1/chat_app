@@ -58,7 +58,7 @@ class UserList extends React.Component {
           messageOrImage = lastMessage.content
         }
       }
-      const lastMessageDate = lastMessage.created_at
+      const lastMessageDate = new Date(lastMessage.created_at).toLocaleString()
       var statusIcon
       if (lastMessage.user_id !== friend.id) {
         statusIcon = (
@@ -71,7 +71,7 @@ class UserList extends React.Component {
           <i className='fa fa-circle user-list__item__icon' />
         )
       }
-      if (lastMessage.length === 0) statusIcon = <i className=''/> // とりあえずメッセージが無い時の対応（仮）
+      if (lastMessage.length === 0) statusIcon = <i className=''/> // TODO とりあえずメッセージが無い時の対応（仮）
       // 既読か未読かどうかの判定
       var isNewMessage = false
       if (UsersStore.getCurrentUser().updated_at < lastMessageDate) {
@@ -121,7 +121,7 @@ class UserList extends React.Component {
     return (
       <div className='user-list'>
         <ul className='user-list__list'>
-          { messages }
+            { messages }
         </ul>
       </div>
     )
