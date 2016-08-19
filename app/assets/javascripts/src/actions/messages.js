@@ -1,11 +1,11 @@
 import request from 'superagent'
 import Dispatcher from '../dispatcher'
-import {APIEndpoints, CSRFToken} from '../constants/app'
+import {ActionTypes, APIEndpoints, CSRFToken} from '../constants/app'
 
 export default {
   changeOpenChat(newUserID) {
     Dispatcher.handleViewAction({
-      type: 'updateOpenChatID',
+      type: ActionTypes.UPDATE_OPEN_CHAT_ID,
       userID: newUserID,
     })
   },
@@ -22,7 +22,7 @@ export default {
         // ここのデータはmessages_controllerのrender
         const jsonData = JSON.parse(res.text)
         Dispatcher.handleViewAction({ // jsonDataの変更を反映させる
-          type: 'sendMessage',
+          type: ActionTypes.SEND_MESSAGE,
           userID: jsonData.user_id,
           message: jsonData.content,
           toUserID: jsonData.to_user_id,
@@ -47,7 +47,7 @@ export default {
       if (res.ok) {
         const jsonData = JSON.parse(res.text)
         Dispatcher.handleViewAction({
-          type: 'sendImage',
+          type: ActionTypes.SEND_IMAGE,
           image: jsonData.image,
           userID: jsonData.user_id,
           toUserID: jsonData.to_user_id,
@@ -65,7 +65,7 @@ export default {
       if (res.ok) {
         const json = JSON.parse(res.text)
         Dispatcher.handleViewAction({
-          type: 'setAllContents',
+          type: ActionTypes.SET_ALL_CONTENTS,
           json: json,
         })
       } else {

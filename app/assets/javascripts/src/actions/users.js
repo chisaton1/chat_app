@@ -1,7 +1,7 @@
 import request from 'superagent'
 import Dispatcher from '../dispatcher'
 // import {APIEndpoints} from '../constants/app'
-import {APIEndpoints, CSRFToken} from '../constants/app'
+import {ActionTypes, APIEndpoints} from '../constants/app'
 
 export default {
   getCurrentUserInfo() {
@@ -11,7 +11,7 @@ export default {
       if (res.ok) {
         const json = JSON.parse(res.text)
         Dispatcher.handleViewAction({
-          type: 'setCurrentUserInfo',
+          type: ActionTypes.SET_CURRENT_USER_INFO,
           json: json,
         })
       } else {
@@ -26,7 +26,7 @@ export default {
       if (res.ok) {
         const json = JSON.parse(res.text)
         Dispatcher.handleViewAction({
-          type: 'setAllUsers',
+          type: ActionTypes.SET_ALL_USERS,
           json: json,
         })
       } else {
@@ -41,7 +41,7 @@ export default {
       if (res.ok) {
         const json = JSON.parse(res.text)
         Dispatcher.handleViewAction({
-          type: 'setChatFriends',
+          type: ActionTypes.SET_CHAT_FRIENDS,
           json: json,
         })
       } else {
@@ -49,20 +49,20 @@ export default {
       }
     })
   },
-  updateUserCreatedAt() {
-    request
-    .post(APIEndpoints.CURRENT_USER)
-    .set('X-CSRF-Token', CSRFToken())
-    .end(function(err, res) {
-      if (res.ok) {
-        const jsonData = JSON.parse(res.text)
-        Dispatcher.handleViewAction({
-          type: 'updateUserCreatedAt',
-          updated_at: jsonData.updated_at,
-        })
-      } else {
-        console.error('error', err)
-      }
-    })
-  },
+  // updateUserCreatedAt() {
+  //   request
+  //   .post(APIEndpoints.CURRENT_USER)
+  //   .set('X-CSRF-Token', CSRFToken())
+  //   .end(function(err, res) {
+  //     if (res.ok) {
+  //       const jsonData = JSON.parse(res.text)
+  //       Dispatcher.handleViewAction({
+  //         type: 'updateUserCreatedAt',
+  //         updated_at: jsonData.updated_at,
+  //       })
+  //     } else {
+  //       console.error('error', err)
+  //     }
+  //   })
+  // },
 }

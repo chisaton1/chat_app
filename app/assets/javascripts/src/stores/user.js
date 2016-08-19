@@ -1,5 +1,6 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
+import {ActionTypes} from '../constants/app'
 
 class UsersStore extends BaseStore {
   getCurrentUser() {
@@ -40,25 +41,47 @@ class UsersStore extends BaseStore {
 
 const usersStore = new UsersStore()
 usersStore.dispatchToken = Dispatcher.register(payload => {
-  const actions = {
-    setCurrentUserInfo(payload) {
-      usersStore.setCurrentUser(payload.action.json)
+  const action = payload.action
+  switch (action.type) {
+    case ActionTypes.SET_CURRENT_USER_INFO:
+      usersStore.setCurrentUser(action.json)
       usersStore.emitChange()
-    },
-    setAllUsers(payload) {
-      usersStore.setUsersList(payload.action.json)
+      break
+
+    case ActionTypes.SET_ALL_USERS:
+      usersStore.setUsersList(action.json)
       usersStore.emitChange()
-    },
-    setChatFriends(payload) {
-      usersStore.setChatFriendsList(payload.action.json)
+      break
+
+    case ActionTypes.SET_CHAT_FRIENDS:
+      usersStore.setChatFriendsList(action.json)
       usersStore.emitChange()
-    },
-    // updateUserCreatedAt(payload) {
-    //   const currentUserData = usersStore.getCurrentUser()
-    //   currentUserData.updated_at = payload.action.updated_at
-    //   usersStore.emitChange()
-    // },
+      break
+
+    default:
   }
-  actions[payload.action.type] && actions[payload.action.type](payload)
+  return true
 })
+
+//   const actions = {
+//     setCurrentUserInfo(payload) {
+//       usersStore.setCurrentUser(payload.action.json)
+//       usersStore.emitChange()
+//     },
+//     setAllUsers(payload) {
+//       usersStore.setUsersList(payload.action.json)
+//       usersStore.emitChange()
+//     },
+//     setChatFriends(payload) {
+//       usersStore.setChatFriendsList(payload.action.json)
+//       usersStore.emitChange()
+//     },
+//     // updateUserCreatedAt(payload) {
+//     //   const currentUserData = usersStore.getCurrentUser()
+//     //   currentUserData.updated_at = payload.action.updated_at
+//     //   usersStore.emitChange()
+//     // },
+//   }
+//   actions[payload.action.type] && actions[payload.action.type](payload)
+// })
 export default usersStore
