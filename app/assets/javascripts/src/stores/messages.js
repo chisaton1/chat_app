@@ -3,7 +3,9 @@ import _ from 'lodash'
 import BaseStore from '../base/store'
 import UsersStore from '../stores/user'
 
-let openChatID = -1 // TODO 初期画面は誰も選択されない (friendsList.length === 0) ? -1 : friendsList[0].id
+const friendsList = UsersStore.getChatFriendsList()
+let openChatID = (friendsList.length === 0) ? -1 : friendsList[0].id
+console.log(friendsList)
 class ChatStore extends BaseStore {
   getCurrentUserJsonData() {
     if (!this.get('currentUserJsonData')) this.setCurrentUserJsonData([])
@@ -68,7 +70,6 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       MessagesStore.emitChange()
     },
     setAllContents(payload) {
-      // debugger
       MessagesStore.setCurrentUserJsonData(payload.action.json)
       MessagesStore.emitChange()
     },

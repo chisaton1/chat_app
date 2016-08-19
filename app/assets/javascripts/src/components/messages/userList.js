@@ -14,11 +14,9 @@ class UserList extends React.Component {
     return this.getStateFromStore()
   }
   getStateFromStore() {
-    const messageList = []
     const friendsList = UsersStore.getChatFriendsList()
     return {
       openChatID: (friendsList.length === 0) ? -1 : MessagesStore.getOpenChatUserID(), // TODO fix ID
-      messageList: messageList,
       chatFriendsList: UsersStore.getChatFriendsList(),
     }
   }
@@ -37,13 +35,15 @@ class UserList extends React.Component {
     MessagesAction.changeOpenChat(id)
   }
   render() {
-    this.state.messageList.sort((a, b) => {
-      if (a.lastMessage.timestamp > b.lastMessage.timestamp) {
-        return -1
-      }
-      if (a.lastMessage.timestamp < b.lastMessage.timestamp) {
-        return 1
-      }
+    // console.log(this.state.chatFriendsList)
+    this.state.chatFriendsList.sort((a, b) => {
+      const lastContentA = MessagesStore.getLastContent(a.id)
+      const lastContentB = MessagesStore.getLastContent(b.id)
+      // if (!lastContentA) return 0
+      // if (!lastContentB) return 0
+      if (!lastContentA || !lastContentB) return 0
+      if (lastContentA.created_at > lastContentB.created_at) return -1
+      if (lastContentA.created_at < lastContentB.created_at) return 1
       return 0
     })
     const messages = this.state.chatFriendsList.map((friend, index) => {
@@ -58,7 +58,13 @@ class UserList extends React.Component {
           messageOrImage = lastMessage.content
         }
       }
-      const lastMessageDate = new Date(lastMessage.created_at).toLocaleString()
+      let lastMessageDate
+      if (lastMessage.length !== 0) {
+        lastMessageDate = new Date(lastMessage.created_at).toLocaleString()
+      } else {
+        lastMessageDate = ''
+      }
+      // if (!lastMessageDate) lastMessageDate = ''
       var statusIcon
       if (lastMessage.user_id !== friend.id) {
         statusIcon = (

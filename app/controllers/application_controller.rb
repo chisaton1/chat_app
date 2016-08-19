@@ -25,7 +25,12 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    user_path(@user)
+    # 既にログインしていたら(current_userがnullじゃなければ)チャットページに飛ばす
+    if current_user
+      current_user
+    else
+      user_path(@user)
+    end
   end
 
   def after_sign_out_path_for(resource)

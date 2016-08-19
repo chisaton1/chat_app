@@ -47,7 +47,7 @@ export default class SearchBox extends React.Component {
         userImage = `/user_images/${user.image}`
       }
       return (
-        <li key={user.id}>
+        <li key={ user.id }>
           <div className='user-name'>
             <a className='user-list__item__picture'>
               <img src={ userImage } />

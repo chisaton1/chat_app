@@ -18,35 +18,39 @@
  body {
   overflow: auto;
   /*text-align: center;*/
-  padding-top: 70px;
+  /*padding-top: 50px;*/
+  padding-top: 39px;
+  /*padding: 0;*/
   /*color: #364a4d;*/
 }
 
 h1 {
   text-align: center;
-
+  margin-top: 70px;
 }
 
 a {
   text-decoration: none;
   color: #1f89e2;
+  /*color: white;*/
 }
 
 a:hover {
   text-decoration: underline;
-  color: #1b7ccd;
+  color: #1f89e2;
 }
 
 /* ヘッダー ================================ */
 .navbar {
   height: 59px;
+  /*height:80px;*/
   width: 100%;
   background-color: rgba(34, 49, 52, 0.9);
   top: 0;
   right: 0;
   left: 0;
   position: fixed;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
   z-index: 10;
 }
 
@@ -182,16 +186,19 @@ footer small {
   line-height: 40px;
   padding-left: 15px;
   font-size: small;
+  /*margin-top: 50px;*/
 }
 
 .alert-success {
   color: #3c763d;
   background-color: #dff0d8;
+  /*padding-top: 20px;*/
 }
 
 .alert-danger {
   background-color: #f2dede;
   color: #a94442;
+  /*margin-top: 20px;*/
 }
 
 .alert-danger ul li {
@@ -207,7 +214,7 @@ footer small {
 /*プロフィール画面*/
 
 img {
-  width: 40%;
+  /*width: 40%;*/
   height: auto;
   text-align: center;
   /*margin: 10px 0;*/
@@ -219,6 +226,28 @@ p {
 
 .profile-wrapper {
   text-align: center;
+}
+
+/*プロフィール編集画面*/
+#delete-user-btn {
+  /*margin: 0 5px;
+  padding: 2px 6px;
+  font-size: 11px;*/
+  background-color: #ec5268;
+  width: 20%;
+  padding: 4px 6px;
+  /*margin: 20px 0;*/
+  color: white;
+  display: inline-block;
+  opacity: 0.8;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#delete-user-btn:hover {
+  background-color: #ff5268;
 }
 
 /*ユーザー検索ページ*/
@@ -294,6 +323,53 @@ button:hover {
   background-color: #239b76;
 }
 
-.submit_image:hover {
+a.submit_image:hover {
   background-color: #28b086;
+  /*color: white;*/
+}
+
+/*home画面*/
+.home {
+  /*margin-top: 0;*/
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  text-align: center;
+}
+
+.home-wrapper {
+  /*margin-top: 0;*/
+  background-image: url(chat.jpg);
+  background-size: cover;
+  height: 800px;
+}
+
+.regist-btn {
+  /*width:100%;*/
+  text-align: center;
+  margin: 0 30px;
+  /*margin-right: 30px;*/
+  background-color: #239b76;
+  padding: 15px 150px;
+  font-size: x-large;
+  color: white;
+  /*opacity: 0.8;*/
+  border-radius: 3px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  cursor: pointer;
+  /*margin-top: 100px;*/
+}
+
+.regist-btn:hover {
+  color: white;
+  background-color: #28b086;
+  text-decoration: none;
+}
+h2.title {
+  /*margin-top: 30px;*/
+  margin-top: 0;
+  margin-bottom: 150px;
+  color: white;
+  font-size: 40px;
+  padding-top: 240px;
 }

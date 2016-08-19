@@ -38,7 +38,7 @@ class MessagesBox extends React.Component {
         'message-box__item--from-current': c.user_id === this.state.currentUser.id,
         'clear': true,
       })
-      var contentOrMessage
+      let contentOrMessage
       if (c.content != null) {
         contentOrMessage = c.content
       } else {
