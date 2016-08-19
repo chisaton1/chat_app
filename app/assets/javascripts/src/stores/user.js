@@ -18,7 +18,7 @@ class UsersStore extends BaseStore {
   }
   findNameFromUsersList(typeString) {
     return this.getUsersList().filter((u, index) => {
-      if (u.name.indexOf(typeString) >= 0 || !typeString.isEmpty()) {
+      if (u.name.indexOf(typeString) >= 0 && typeString) {
         return u
       }
     })

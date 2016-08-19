@@ -77,7 +77,7 @@ class UserList extends React.Component {
           <i className='fa fa-circle user-list__item__icon' />
         )
       }
-      if (lastMessage.length === 0) statusIcon = <i className=''/> // TODO とりあえずメッセージが無い時の対応（仮）
+      if (lastMessage.length === 0) statusIcon = <i/>
       // 既読か未読かどうかの判定
       var isNewMessage = false
       if (UsersStore.getCurrentUser().updated_at < lastMessageDate) {

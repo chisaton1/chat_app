@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160817070952) do
+ActiveRecord::Schema.define(version: 20160819052221) do
 
   create_table "friends", force: :cascade do |t|
     t.integer  "user_id"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20160817070952) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "timestamp"
     t.integer  "to_user_id"
     t.string   "image"
   end
@@ -37,7 +36,6 @@ ActiveRecord::Schema.define(version: 20160817070952) do
     t.string   "email"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.datetime "last_access"
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

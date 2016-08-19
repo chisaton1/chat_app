@@ -40,7 +40,7 @@ export default class SearchBox extends React.Component {
   }
   render() {
     var userImage
-    const list = this.state.findUsersList.map((user, index) => {
+    const list = UsersStore.findNameFromUsersList(this.state.value).map((user, index) => {
       if (user.image == null) {
         userImage = `/user_images/no-image.gif`
       } else {

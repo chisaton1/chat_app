@@ -5,7 +5,6 @@ import UsersStore from '../stores/user'
 
 const friendsList = UsersStore.getChatFriendsList()
 let openChatID = (friendsList.length === 0) ? -1 : friendsList[0].id
-console.log(friendsList)
 class ChatStore extends BaseStore {
   getCurrentUserJsonData() {
     if (!this.get('currentUserJsonData')) this.setCurrentUserJsonData([])
