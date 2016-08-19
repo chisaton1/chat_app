@@ -27,10 +27,12 @@ class ReplyBox extends React.Component {
     }
   }
   handleKeyDown(e) {
-    if (e.keyCode === 13) {
+    const recipientID = MessagesStore.getOpenChatUserID()
+    // recipientIDが-1の時はチャットするユーザーが選択されていないとき
+    if (e.keyCode === 13 && recipientID !== -1) {
       MessagesAction.sendMessage(UsersStore.getCurrentUser().id,
                                  this.state.value,
-                                 MessagesStore.getOpenChatUserID()
+                                 recipientID
                                 )
       this.setState({
         value: '',
@@ -45,13 +47,17 @@ class ReplyBox extends React.Component {
   updateImage(e) {
     // ファイルが選択されなかった時(Cancelを押された時)
     if (!e.target.files.length) return
-    this.setState({
-      image: e.target.files[0],
-    })
-    MessagesAction.sendImage(UsersStore.getCurrentUser().id,
-                             e.target.files[0],
-                             MessagesStore.getOpenChatUserID()
-                            )
+    const recipientID = MessagesStore.getOpenChatUserID()
+    // recipientIDが-1の時はチャットするユーザーが選択されていないとき
+    if (recipientID !== -1) {
+      this.setState({
+        image: e.target.files[0],
+      })
+      MessagesAction.sendImage(UsersStore.getCurrentUser().id,
+                               e.target.files[0],
+                               MessagesStore.getOpenChatUserID()
+                              )
+    }
   }
   render() {
     return (

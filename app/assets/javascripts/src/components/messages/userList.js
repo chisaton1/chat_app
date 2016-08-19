@@ -15,8 +15,9 @@ class UserList extends React.Component {
   }
   getStateFromStore() {
     const friendsList = UsersStore.getChatFriendsList()
+    // console.log(friendsList)
     return {
-      openChatID: (friendsList.length === 0) ? -1 : MessagesStore.getOpenChatUserID(), // TODO fix ID
+      openChatID: (friendsList.length === 0) ? -1 : MessagesStore.getOpenChatUserID(),
       chatFriendsList: UsersStore.getChatFriendsList(),
     }
   }
@@ -35,12 +36,10 @@ class UserList extends React.Component {
     MessagesAction.changeOpenChat(id)
   }
   render() {
-    // console.log(this.state.chatFriendsList)
+    // ユーザーリストのソート
     this.state.chatFriendsList.sort((a, b) => {
       const lastContentA = MessagesStore.getLastContent(a.id)
       const lastContentB = MessagesStore.getLastContent(b.id)
-      // if (!lastContentA) return 0
-      // if (!lastContentB) return 0
       if (!lastContentA || !lastContentB) return 0
       if (lastContentA.created_at > lastContentB.created_at) return -1
       if (lastContentA.created_at < lastContentB.created_at) return 1
@@ -64,7 +63,6 @@ class UserList extends React.Component {
       } else {
         lastMessageDate = ''
       }
-      // if (!lastMessageDate) lastMessageDate = ''
       var statusIcon
       if (lastMessage.user_id !== friend.id) {
         statusIcon = (

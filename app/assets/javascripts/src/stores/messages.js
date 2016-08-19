@@ -3,8 +3,8 @@ import _ from 'lodash'
 import BaseStore from '../base/store'
 import UsersStore from '../stores/user'
 
-const friendsList = UsersStore.getChatFriendsList()
-let openChatID = (friendsList.length === 0) ? -1 : friendsList[0].id
+// const friendsList = UsersStore.getChatFriendsList()
+let openChatID = -1 // 仮のID
 class ChatStore extends BaseStore {
   getCurrentUserJsonData() {
     if (!this.get('currentUserJsonData')) this.setCurrentUserJsonData([])
@@ -34,6 +34,10 @@ class ChatStore extends BaseStore {
     this.off('change', callback)
   }
   getOpenChatUserID() {
+    if (openChatID === -1) { // 初期値（-1）だったら
+      const friendsList = UsersStore.getChatFriendsList()
+      openChatID = (friendsList.length === 0) ? -1 : friendsList[0].id
+    }
     return openChatID
   }
 }
