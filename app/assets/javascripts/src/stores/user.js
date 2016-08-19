@@ -53,6 +53,11 @@ usersStore.dispatchToken = Dispatcher.register(payload => {
       usersStore.setChatFriendsList(payload.action.json)
       usersStore.emitChange()
     },
+    // updateUserCreatedAt(payload) {
+    //   const currentUserData = usersStore.getCurrentUser()
+    //   currentUserData.updated_at = payload.action.updated_at
+    //   usersStore.emitChange()
+    // },
   }
   actions[payload.action.type] && actions[payload.action.type](payload)
 })

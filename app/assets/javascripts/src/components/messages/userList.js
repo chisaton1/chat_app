@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import MessagesStore from '../../stores/messages'
 import UsersStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
+import UsersAction from '../../actions/users'
 import {CSRFToken} from '../../constants/app'
 
 class UserList extends React.Component {
@@ -34,7 +35,11 @@ class UserList extends React.Component {
   }
   changeOpenChat(id) {
     MessagesAction.changeOpenChat(id)
+    // this.updateUserCreatedAt()
   }
+  // updateUserCreatedAt() {
+  //   UsersAction.updateUserCreatedAt()
+  // }
   render() {
     // ユーザーリストのソート
     this.state.chatFriendsList.sort((a, b) => {
@@ -63,28 +68,31 @@ class UserList extends React.Component {
       } else {
         lastMessageDate = ''
       }
-      var statusIcon
+      let statusIcon
       if (lastMessage.user_id !== friend.id) {
         statusIcon = (
           <i className='fa fa-reply user-list__item__icon' />
         )
       }
       // クリックしてチャットページを開いたらcurrent_userのupdated_atを更新する必要あり
-      if (UsersStore.getCurrentUser().updated_at < lastMessageDate) {
+      // console.log(UsersStore.getCurrentUser().updated_at)
+      // console.log(lastMessage.created_at)
+      // console.log(UsersStore.getCurrentUser().updated_at > lastMessage.created_at)
+      if (lastMessage.user_id === friend.id) {
         statusIcon = (
           <i className='fa fa-circle user-list__item__icon' />
         )
       }
       if (lastMessage.length === 0) statusIcon = <i/>
       // 既読か未読かどうかの判定
-      var isNewMessage = false
-      if (UsersStore.getCurrentUser().updated_at < lastMessageDate) {
-        isNewMessage = lastMessage.user_id !== UsersStore.getCurrentUser().id
-      }
+      // var isNewMessage = false
+      // if (UsersStore.getCurrentUser().updated_at < lastMessage.created_at) {
+      //   isNewMessage = lastMessage.user_id !== UsersStore.getCurrentUser().id
+      // }
       const itemClasses = classNames({
         'user-list__item': true,
         'clear': true,
-        'user-list__item--new': isNewMessage,
+        'user-list__item--new': true, // isNewMessage,
         'user-list__item--active': this.state.openChatID === friend.id,
       })
       var userImage

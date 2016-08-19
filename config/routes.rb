@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :edit, :update]
   namespace :api do
     resources :messages, only: [:index, :create]
-    resources :current_user, only: [:index]
+    resources :current_user, only: [:index] #:create
     resources :users, only: [:index]
     resources :friends, only: [:index]
   end
