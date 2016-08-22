@@ -16,7 +16,7 @@ class MessagesBox extends React.Component {
     return {
       messages: MessagesStore.getCurrentUserJsonData(),
       currentUser: UsersStore.getCurrentUser(),
-    } // stateは連想配列でないとダメらしい
+    }
   }
   componentWillMount() {
     MessagesStore.onChange(this.onStoreChange.bind(this))
