@@ -6,6 +6,7 @@
       =image_tag "/user_images/#{@user.image}"
     - else
       =image_tag '/user_images/no-image.gif'
+    - # 変数化しなくてもよいかな
     - name =@user.name
     - email = @user.email
     %p 名前: #{name}

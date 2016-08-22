@@ -18,6 +18,8 @@ class UsersStore extends BaseStore {
     this.set('usersList', array)
   }
   findNameFromUsersList(typeString) {
+    // uは省略せずにuserって書いたほうが分かりやすいのでuserで！
+    // indexも使ってないので消せるかな？
     return this.getUsersList().filter((u, index) => {
       if (u.name.indexOf(typeString) >= 0 && typeString) {
         return u

@@ -11,7 +11,9 @@ export default class SearchBox extends React.Component {
   }
   get initialState() {
     return {
+      // なんのvalueか分からないので、分かるような命名にする
       value: '',
+      // 名詞にする
       findUsersList: [],
     }
   }
@@ -35,11 +37,14 @@ export default class SearchBox extends React.Component {
       findUsersList: UsersStore.findNameFromUsersList(e.target.value),
     })
   }
+  // これはいらない？
   onClick(e) {
     MessagesAction.changeOpenChat(e)
   }
   render() {
+    // varは使わない
     var userImage
+    // UsersStore.findNameFromUsersList(this.state.value)のとこはstateからとれるかな？mapのとこのindexも消せるかな？
     const list = UsersStore.findNameFromUsersList(this.state.value).map((user, index) => {
       if (user.image == null) {
         userImage = `/user_images/no-image.gif`

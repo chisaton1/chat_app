@@ -16,3 +16,6 @@
 /log/*
 !/log/.keep
 /tmp
+
+public/user_images
+vendor/bundler
