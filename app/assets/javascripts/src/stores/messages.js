@@ -55,7 +55,9 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
     case ActionTypes.SEND_MESSAGE:
       // jsonData1,jsonData2のようにしてるけど
       // {}で区切るとスコープが区切れるよ！
-      // こんなかんじで書くとメッセージ送った時に変なエラーが出なくなる
+      //
+      // 中身の処理はこんな感じで書くとメッセージ送った時に変なエラーが出なくなる
+      // messageのidを保存してなかったためエラーが出てた
       // おそらくimageの方も同様に直せる
       {
         const messages = MessagesStore.getCurrentUserJsonData()
