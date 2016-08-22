@@ -1,6 +1,6 @@
 import React from 'react'
-import UserList from './components/messages/userList'
-import MessagesBox from './components/messages/messagesBox'
+import UserList from './userList'
+import MessagesBox from './messagesBox'
 
 class App extends React.Component {
   render() {

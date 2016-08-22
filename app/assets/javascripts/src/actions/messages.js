@@ -13,9 +13,6 @@ export default {
     request
     .post(APIEndpoints.MESSAGES)
     .send({content: message, user_id: userID, to_user_id: toUserID})
-    // .field('user_id', userID)
-    // .field('to_user_id', toUserID)
-    // .field('content', message)
     .set('X-CSRF-Token', CSRFToken())
     .end(function(err, res) {
       if (res.ok) {
@@ -37,8 +34,6 @@ export default {
   sendImage(userID, image, toUserID) {
     request
     .post(APIEndpoints.MESSAGES)
-    // .send({image: iamge, user_id: userID, to_user_id: toUserID})
-    // console.log(image)
     .set('X-CSRF-Token', CSRFToken())
     .field('user_id', userID)
     .field('to_user_id', toUserID)

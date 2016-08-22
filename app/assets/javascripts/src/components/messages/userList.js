@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import MessagesStore from '../../stores/messages'
 import UsersStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
-// import UsersAction from '../../actions/users'
 import {CSRFToken} from '../../constants/app'
 
 class UserList extends React.Component {
@@ -73,10 +72,6 @@ class UserList extends React.Component {
           <i className='fa fa-reply user-list__item__icon' />
         )
       }
-      // クリックしてチャットページを開いたらcurrent_userのupdated_atを更新する必要あり
-      // console.log(UsersStore.getCurrentUser().updated_at)
-      // console.log(lastMessage.created_at)
-      // console.log(UsersStore.getCurrentUser().updated_at > lastMessage.created_at)
       if (lastMessage.user_id === friend.id) {
         statusIcon = (
           <i className='fa fa-circle user-list__item__icon' />
@@ -91,7 +86,7 @@ class UserList extends React.Component {
       const itemClasses = classNames({
         'user-list__item': true,
         'clear': true,
-        'user-list__item--new': true, // isNewMessage,
+        'user-list__item--new': true,
         'user-list__item--active': this.state.openChatID === friend.id,
       })
       var userImage

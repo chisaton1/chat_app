@@ -53,10 +53,11 @@ class ReplyBox extends React.Component {
       this.setState({
         image: e.target.files[0],
       })
-      MessagesAction.sendImage(UsersStore.getCurrentUser().id,
-                               e.target.files[0],
-                               MessagesStore.getOpenChatUserID()
-                              )
+      MessagesAction.sendImage(
+        UsersStore.getCurrentUser().id,
+        e.target.files[0],
+        MessagesStore.getOpenChatUserID()
+      )
     }
   }
   render() {
