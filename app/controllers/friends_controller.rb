@@ -6,7 +6,7 @@ class FriendsController < ApplicationController
     # friendData = friend.where("user_id = #{current_user.id} and to_user_id = #{params[:friend_id]}")
     #二重にDBへ同じデータを保存しないようにする
     if !current_user.friend?(userFriend)
-      new_friend_data = current_user.friends.build(to_user_id: friend.id)
+      new_friend_data = current_user.friends.build(to_user_id: params[:friend_id])
       new_friend_data.save
     end
     redirect_to messages_path
