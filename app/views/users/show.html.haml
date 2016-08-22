@@ -6,9 +6,9 @@
       =image_tag "/user_images/#{@user.image}"
     - else
       =image_tag '/user_images/no-image.gif'
-    - name =@user.name
-    - email = @user.email
-    %p 名前: #{name}
-    %p メールアドレス: #{email}
+    -# - name =@user.name
+    -# - email = @user.email
+    %p 名前: #{@user.name}
+    %p メールアドレス: #{@user.email}
     %p= link_to "プロフィールを編集する", edit_user_registration_path
     %p= link_to "退会する", edit_user_registration_path

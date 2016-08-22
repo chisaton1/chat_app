@@ -30,7 +30,7 @@ class ReplyBox extends React.Component {
     // recipientIDが-1の時はチャットするユーザーが選択されていないとき
     if (e.keyCode === 13 && recipientID !== -1) {
       MessagesAction.sendMessage(
-        UsersStore.getCurrentUser().id,
+        // UsersStore.getCurrentUser().id,
         this.state.value,
         recipientID
       )

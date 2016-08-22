@@ -22,9 +22,9 @@ class UsersController < ApplicationController
   #   redirect_to messages_path
   # end
 
-  def index
-    @user = User.all
-  end
+  # def index
+  #   @user = User.all
+  # end
 
   private
     def correct_user

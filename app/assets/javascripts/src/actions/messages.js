@@ -9,10 +9,11 @@ export default {
       userID: newUserID,
     })
   },
-  sendMessage(userID, message, toUserID) {
+  sendMessage(message, toUserID) {
     request
     .post(APIEndpoints.MESSAGES)
-    .send({content: message, user_id: userID, to_user_id: toUserID})
+    .send({content: message, to_user_id: toUserID})
+    // .send({jsonData: message})
     .set('X-CSRF-Token', CSRFToken())
     .end(function(err, res) {
       if (res.ok) {
@@ -20,11 +21,11 @@ export default {
         const jsonData = JSON.parse(res.text)
         Dispatcher.handleViewAction({ // jsonDataの変更を反映させる
           type: ActionTypes.SEND_MESSAGE,
-          userID: jsonData.user_id,
-          message: jsonData.content,
-          toUserID: jsonData.to_user_id,
-          createdAt: jsonData.created_at,
-          // json: JSON.parse(res.text),
+          message: jsonData,
+          // userID: jsonData.user_id,
+          // message: jsonData.content,
+          // toUserID: jsonData.to_user_id,
+          // createdAt: jsonData.created_at,
         })
       } else {
         console.error('error', err)

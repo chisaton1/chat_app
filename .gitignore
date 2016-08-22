@@ -16,3 +16,7 @@
 /log/*
 !/log/.keep
 /tmp
+
+# このファイルに追加したものはgitに反映されない
+public/user_images
+vendor/bundler

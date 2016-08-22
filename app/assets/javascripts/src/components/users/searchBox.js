@@ -1,18 +1,18 @@
 import React from 'react'
 import UsersStore from '../../stores/user'
 import {CSRFToken} from '../../constants/app'
-import MessagesAction from '../../actions/messages'
+// import MessagesAction from '../../actions/messages'
 
 export default class SearchBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.initialState
-    this.updateValue = this.updateValue.bind(this)
+    this.updateTypedValue = this.updateTypedValue.bind(this)
   }
   get initialState() {
     return {
-      value: '',
-      findUsersList: [],
+      typedValue: '',
+      usersList: [],
     }
   }
   componentWillMount() {
@@ -26,21 +26,21 @@ export default class SearchBox extends React.Component {
   }
   getStateFromStore() {
     return {
-      findUsersList: UsersStore.getUsersList(),
+      usersList: UsersStore.getUsersList(),
     }
   }
-  updateValue(e) {
+  updateTypedValue(e) {
     this.setState({
-      value: e.target.value,
-      findUsersList: UsersStore.findNameFromUsersList(e.target.value),
+      typedValue: e.target.value,
+      usersList: UsersStore.findNameFromUsersList(e.target.value),
     })
   }
-  onClick(e) {
-    MessagesAction.changeOpenChat(e)
-  }
+  // onClick(e) {
+  //   MessagesAction.changeOpenChat(e)
+  // }
   render() {
-    var userImage
-    const list = UsersStore.findNameFromUsersList(this.state.value).map((user, index) => {
+    let userImage
+    const list = this.state.usersList.map((user) => {
       if (user.image == null) {
         userImage = `/user_images/no-image.gif`
       } else {
@@ -65,7 +65,6 @@ export default class SearchBox extends React.Component {
               <input
                 type='hidden'
                 name='get_frined_id'
-                onClick={this.onClick.bind(this, user.id)}
               />
             </form>
           </div>
@@ -77,8 +76,8 @@ export default class SearchBox extends React.Component {
         <h1>ユーザー検索</h1>
         <div className='reply-box search-box'>
           <input
-            value={ this.state.value }
-            onChange={ this.updateValue }
+            value={ this.state.typedValue }
+            onChange={ this.updateTypedValue }
             className='reply-box__input'
             placeholder='Search users'
           />

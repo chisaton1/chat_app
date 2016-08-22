@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'home#new'
+  root 'home#top'
   get 'messages' => 'messages#index'
   post 'users/upload' => 'users#upload'
   post 'friend/:friend_id' => 'friends#friend', as: 'friend'

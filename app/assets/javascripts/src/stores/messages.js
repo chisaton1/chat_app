@@ -7,23 +7,23 @@ import {ActionTypes} from '../constants/app'
 // const friendsList = UsersStore.getChatFriendsList()
 let openChatID = -1 // 仮のID
 class ChatStore extends BaseStore {
-  getCurrentUserJsonData() {
-    if (!this.get('currentUserJsonData')) this.setCurrentUserJsonData([])
+  getMessages() {
+    if (!this.get('currentUserJsonData')) this.setMessages([])
     return this.get('currentUserJsonData')
   }
-  setCurrentUserJsonData(array) {
+  setMessages(array) {
     this.set('currentUserJsonData', array)
   }
   // 渡されたIDと自分のIDに該当するメッセージの一番最後に投稿されたものをjsonで返す
   getLastContent(userID) {
     const currentUserID = UsersStore.getCurrentUser().id
-    return _.findLast(this.getCurrentUserJsonData(), function(json) {
+    return _.findLast(this.getMessages(), function(json) {
       return (json.to_user_id === userID && json.user_id === currentUserID) ||
              (json.to_user_id === currentUserID && json.user_id === userID)
     })
   }
   getContentsByUserIDs(currentUserID, recipientID) {
-    return _.filter(this.getCurrentUserJsonData(), function(j) {
+    return _.filter(this.getMessages(), function(j) {
       return (j.user_id === currentUserID && j.to_user_id === recipientID) ||
              (j.to_user_id === currentUserID && j.user_id === recipientID)
     })
@@ -52,29 +52,37 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       break
 
     case ActionTypes.SEND_MESSAGE:
-      const jsonData1 = MessagesStore.getCurrentUserJsonData()
-      jsonData1.push({
-        user_id: action.userID,
-        content: action.message,
-        to_user_id: action.toUserID,
-        created_at: action.createdAt,
-      })
+      {
+        const messages = MessagesStore.getMessages()
+        messages.push(action.message)
+      }
+      // const jsonData1 = MessagesStore.getMessages()
+      // jsonData1.push({
+      //   user_id: action.message.user_id,
+      //   content: action.message.content,
+      //   to_user_id: action.message.to_user_id,
+      //   created_at: action.message.created_at,
+      // })
       MessagesStore.emitChange()
       break
 
     case ActionTypes.SEND_IMAGE:
-      const jsonData2 = MessagesStore.getCurrentUserJsonData()
-      jsonData2.push({
-        user_id: action.userID,
-        image: action.image,
-        to_user_id: action.toUserID,
-        created_at: action.createdAt,
-      })
+      {
+        const messages = MessagesStore.getMessages()
+        messages.push(action.messages)
+      }
+      // const jsonData2 = MessagesStore.getMessages()
+      // jsonData2.push({
+      //   user_id: action.userID,
+      //   image: action.image,
+      //   to_user_id: action.toUserID,
+      //   created_at: action.createdAt,
+      // })
       MessagesStore.emitChange()
       break
 
     case ActionTypes.SET_ALL_CONTENTS:
-      MessagesStore.setCurrentUserJsonData(action.json)
+      MessagesStore.setMessages(action.json)
       MessagesStore.emitChange()
       break
 
@@ -90,8 +98,8 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
 //     },
 //     sendMessage(payload) {
 //       // debugger
-//       // MessagesStore.setCurrentUserJsonData(payload.action)
-//       const jsonData = MessagesStore.getCurrentUserJsonData()
+//       // MessagesStore.setMessages(payload.action)
+//       const jsonData = MessagesStore.getMessages()
 //       // jsonDataはオブジェクト（参照型）なので再びsetする必要なし
 //       jsonData.push({
 //         user_id: payload.action.userID,
@@ -103,7 +111,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
 //       MessagesStore.emitChange()
 //     },
 //     sendImage(payload) {
-//       const jsonData = MessagesStore.getCurrentUserJsonData()
+//       const jsonData = MessagesStore.getMessages()
 //       jsonData.push({
 //         user_id: payload.action.userID,
 //         image: payload.action.image,
@@ -113,7 +121,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
 //       MessagesStore.emitChange()
 //     },
 //     setAllContents(payload) {
-//       MessagesStore.setCurrentUserJsonData(payload.action.json)
+//       MessagesStore.setMessages(payload.action.json)
 //       MessagesStore.emitChange()
 //     },
 //   }
