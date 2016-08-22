@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import MessagesStore from '../../stores/messages'
 import UsersStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
-import UsersAction from '../../actions/users'
+// import UsersAction from '../../actions/users'
 import {CSRFToken} from '../../constants/app'
 
 class UserList extends React.Component {
