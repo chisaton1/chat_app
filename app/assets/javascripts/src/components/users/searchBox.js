@@ -57,8 +57,16 @@ export default class SearchBox extends React.Component {
             </a>
             <form action={`/friend/${user.id}`} method='post' className='chat-btn'>
               <button>この人とチャットをする</button>
-              <input type='hidden' name='authenticity_token' value={CSRFToken()}/>
-              <input type='hidden' name='get_frined_id' onClick={this.onClick.bind(this, user.id)}/>
+              <input
+                type='hidden'
+                name='authenticity_token'
+                value={CSRFToken()}
+              />
+              <input
+                type='hidden'
+                name='get_frined_id'
+                onClick={this.onClick.bind(this, user.id)}
+              />
             </form>
           </div>
         </li>

@@ -16,7 +16,6 @@ class UserList extends React.Component {
   }
   getStateFromStore() {
     const friendsList = UsersStore.getChatFriendsList()
-    // console.log(friendsList)
     return {
       openChatID: (friendsList.length === 0) ? -1 : MessagesStore.getOpenChatUserID(),
       chatFriendsList: UsersStore.getChatFriendsList(),

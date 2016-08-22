@@ -30,7 +30,9 @@ class MessagesBox extends React.Component {
     this.setState(this.getStateFromStore())
   }
   render() {
-    const messages = MessagesStore.getContentsByUserIDs(this.state.currentUser.id, MessagesStore.getOpenChatUserID())
+    const messages = MessagesStore.getContentsByUserIDs(
+      this.state.currentUser.id, MessagesStore.getOpenChatUserID()
+    )
     // superAgent使ってopenChatID渡してそれに該当するデータを取ってきてもらったほうが早いかもなぁ...
     const msg = messages.map((c, index) => {
       const messageClasses = classNames({
