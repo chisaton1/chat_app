@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   # end
 
   def index
+    # いらない？
     @user = User.all
   end
 

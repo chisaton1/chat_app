@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
-  def new 
+  # ここはnewじゃなくてtopという名前のほうがふさわしいかな
+  def new
   end
 end

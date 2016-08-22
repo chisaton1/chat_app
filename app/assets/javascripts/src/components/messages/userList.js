@@ -50,6 +50,7 @@ class UserList extends React.Component {
     })
     const messages = this.state.chatFriendsList.map((friend, index) => {
       let lastMessage = MessagesStore.getLastContent(friend.id)
+      // var使わない
       var messageOrImage
       if (!lastMessage) {
         lastMessage = [] // 空（何もメッセージが無い）とき
