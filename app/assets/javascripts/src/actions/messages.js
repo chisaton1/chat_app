@@ -23,10 +23,13 @@ export default {
         const jsonData = JSON.parse(res.text)
         Dispatcher.handleViewAction({ // jsonDataの変更を反映させる
           type: ActionTypes.SEND_MESSAGE,
-          userID: jsonData.user_id,
-          message: jsonData.content,
-          toUserID: jsonData.to_user_id,
-          createdAt: jsonData.created_at,
+          // 以下まとめてmessage: jsonDataで渡す
+          message: jsonData,
+          // id: jsonData.id,
+          // userID: jsonData.user_id,
+          // message: jsonData.content,
+          // toUserID: jsonData.to_user_id,
+          // createdAt: jsonData.created_at,
           // json: JSON.parse(res.text),
         })
       } else {

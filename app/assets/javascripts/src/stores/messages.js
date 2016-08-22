@@ -7,6 +7,7 @@ import {ActionTypes} from '../constants/app'
 // const friendsList = UsersStore.getChatFriendsList()
 let openChatID = -1 // 仮のID
 class ChatStore extends BaseStore {
+  // getCurrentUserMessagesもしくは、もうgetMessagesでよいかな。jsonが保存されてるわけではないので。
   getCurrentUserJsonData() {
     if (!this.get('currentUserJsonData')) this.setCurrentUserJsonData([])
     return this.get('currentUserJsonData')
@@ -52,15 +53,26 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       break
 
     case ActionTypes.SEND_MESSAGE:
-      const jsonData1 = MessagesStore.getCurrentUserJsonData()
-      jsonData1.push({
-        user_id: action.userID,
-        content: action.message,
-        to_user_id: action.toUserID,
-        created_at: action.createdAt,
-      })
+      // jsonData1,jsonData2のようにしてるけど
+      // {}で区切るとスコープが区切れるよ！
+      // こんなかんじで書くとメッセージ送った時に変なエラーが出なくなる
+      // おそらくimageの方も同様に直せる
+      {
+        const messages = MessagesStore.getCurrentUserJsonData()
+        messages.push(action.message)
+      }
       MessagesStore.emitChange()
       break
+      // const jsonData1 = MessagesStore.getCurrentUserJsonData()
+      // jsonData1.push({
+      //   id: action.id,
+      //   user_id: action.userID,
+      //   content: action.message,
+      //   to_user_id: action.toUserID,
+      //   created_at: action.createdAt,
+      // })
+      // MessagesStore.emitChange()
+      // break
 
     case ActionTypes.SEND_IMAGE:
       const jsonData2 = MessagesStore.getCurrentUserJsonData()
