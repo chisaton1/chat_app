@@ -78,11 +78,6 @@ class UserList extends React.Component {
         )
       }
       if (lastMessage.length === 0) statusIcon = <i/>
-      // 既読か未読かどうかの判定
-      // var isNewMessage = false
-      // if (UsersStore.getCurrentUser().updated_at < lastMessage.created_at) {
-      //   isNewMessage = lastMessage.user_id !== UsersStore.getCurrentUser().id
-      // }
       const itemClasses = classNames({
         'user-list__item': true,
         'clear': true,
