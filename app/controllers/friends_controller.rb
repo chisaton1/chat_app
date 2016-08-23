@@ -11,6 +11,9 @@ class FriendsController < ApplicationController
 
   def unfriend
     friendData = Friend.find_by(user_id: current_user.id, to_user_id: params[:friend_id])
+    if !friendData
+      friendData = Friend.find_by(user_id: params[:friend_id], to_user_id: current_user.id)
+    end
     friendData.destroy
     redirect_to messages_path
   end

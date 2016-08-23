@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   def friend?(user)
-    !!Friend.find_by(user_id: self.id, to_user_id: user.id)
+    Friend.find_by(user_id: self.id, to_user_id: user.id) ||
+    Friend.find_by(user_id: user.id, to_user_id: self.id)
   end
 end
