@@ -4,18 +4,21 @@ import BaseStore from '../base/store'
 import UsersStore from '../stores/user'
 import {ActionTypes} from '../constants/app'
 
+// TODO: Storeのstorageを使ってopenChatIDを管理する
 let openChatID = -1 // 仮のID
 class ChatStore extends BaseStore {
   getMessages() {
     if (!this.get('currentUserJsonData')) this.setMessages([])
     return this.get('currentUserJsonData')
   }
+  // TODO: メソッドの間は1行あける
   setMessages(array) {
     this.set('currentUserJsonData', array)
   }
   // 渡されたIDと自分のIDに該当するメッセージの一番最後に投稿されたものをjsonで返す
   getLastContent(userID) {
     const currentUserID = UsersStore.getCurrentUser().id
+    // TODO: _.findLast(this.getContentsByUserIDs(.., ..))
     return _.findLast(this.getMessages(), function(json) {
       return (json.to_user_id === userID && json.user_id === currentUserID) ||
              (json.to_user_id === currentUserID && json.user_id === userID)
@@ -27,12 +30,16 @@ class ChatStore extends BaseStore {
              (j.to_user_id === currentUserID && j.user_id === recipientID)
     })
   }
+
+  // TODO: 削除
   addChangeListener(callback) {
     this.on('change', callback)
   }
+  // TODO: 削除
   removeChangeListener(callback) {
     this.off('change', callback)
   }
+  // TODO: UserStoreにうつす（openChatIDもUserStoreのstorageで管理）
   getOpenChatUserID() {
     if (openChatID === -1) { // 初期値（-1）だったら
       const friendsList = UsersStore.getChatFriendsList()

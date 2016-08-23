@@ -40,6 +40,8 @@ class UserList extends React.Component {
   // }
   render() {
     // ユーザーリストのソート
+    // MEMO: SQL側でsortするのがパフォーマンス的に理想
+    // TODO: 別の変数を用意して代入（破壊的な挙動は基本的にしない）
     this.state.chatFriendsList.sort((a, b) => {
       const lastContentA = MessagesStore.getLastContent(a.id)
       const lastContentB = MessagesStore.getLastContent(b.id)
@@ -48,12 +50,17 @@ class UserList extends React.Component {
       if (lastContentA.created_at < lastContentB.created_at) return 1
       return 0
     })
+
+    // TODO: userListComponentsとかに変数名変えたほうがいいかな
     const messages = this.state.chatFriendsList.map((friend, index) => {
+      // const lastMessage = MessagesStore.getLastContent(friend.id) || []
       let lastMessage = MessagesStore.getLastContent(friend.id)
       let messageOrImage
       if (!lastMessage) {
+        // TODO: lastMessage = {} ??
         lastMessage = [] // 空（何もメッセージが無い）とき
       } else {
+        // TODO: || '画像が投稿されました'
         if (lastMessage.content == null) {
           messageOrImage = '画像が投稿されました'
         } else {
@@ -61,12 +68,14 @@ class UserList extends React.Component {
         }
       }
       let lastMessageDate
+      // TODO: if (_.isEmpty(lastMessage))とか使えるかも
       if (lastMessage.length !== 0) {
         lastMessageDate = new Date(lastMessage.created_at).toLocaleString()
       } else {
         lastMessageDate = ''
       }
       let statusIcon
+      // TODO: ロジックの改善
       if (lastMessage.user_id !== friend.id) {
         statusIcon = (
           <i className='fa fa-reply user-list__item__icon' />
@@ -84,6 +93,7 @@ class UserList extends React.Component {
         'user-list__item--new': true,
         'user-list__item--active': this.state.openChatID === friend.id,
       })
+      // TODO: let
       var userImage
       if (friend.image == null) {
         userImage = `/user_images/no-image.gif`

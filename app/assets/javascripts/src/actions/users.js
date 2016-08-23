@@ -9,7 +9,7 @@ export default {
     .end(function(err, res) {
       if (res.ok) {
         const json = JSON.parse(res.text)
-        Dispatcher.handleViewAction({
+        Dispatcher.handleViewAction({ // TODO: APIのhandlerはhandleServerAction
           type: ActionTypes.SET_CURRENT_USER_INFO,
           json: json,
         })

@@ -18,15 +18,18 @@ export default {
       if (res.ok) {
         // ここのデータはmessages_controllerのrender
         const jsonData = JSON.parse(res.text)
-        Dispatcher.handleViewAction({ // jsonDataの変更を反映させる
+        // jsonDataの変更を反映させる
+        Dispatcher.handleViewAction({
           type: ActionTypes.SEND_MESSAGE,
-          message: jsonData,
+          message: jsonData, // TODO: json: jsonData
         })
       } else {
         console.error('error', err)
       }
     })
   },
+
+  // TODO: delete userId
   sendImage(userID, image, toUserID) {
     request
     .post(APIEndpoints.MESSAGES)
@@ -39,7 +42,7 @@ export default {
         const jsonData = JSON.parse(res.text)
         Dispatcher.handleViewAction({
           type: ActionTypes.SEND_IMAGE,
-          image: jsonData,
+          image: jsonData, // TODO: json: jsonData
         })
       } else {
         console.error('error', err)
@@ -54,7 +57,7 @@ export default {
         const json = JSON.parse(res.text)
         Dispatcher.handleViewAction({
           type: ActionTypes.SET_ALL_CONTENTS,
-          json: json,
+          json: json, // MEMO: (json: json) eq json
         })
       } else {
         console.error('error', err)
