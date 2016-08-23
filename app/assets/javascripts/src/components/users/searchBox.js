@@ -35,9 +35,6 @@ export default class SearchBox extends React.Component {
       usersList: UsersStore.findNameFromUsersList(e.target.value),
     })
   }
-  // onClick(e) {
-  //   MessagesAction.changeOpenChat(e)
-  // }
   render() {
     let userImage
     const list = this.state.usersList.map((user) => {

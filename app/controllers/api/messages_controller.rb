@@ -22,15 +22,6 @@ class Api::MessagesController < ApplicationController
       )
     end
     @message.save
-    # redirect_to messages_path
     render json: @message
   end
-  # def createImage
-  #   @message = Message.new(image: params[:image],
-  #                           user_id: params[:user_id],
-  #                           to_user_id: params[:to_user_id],
-  #                         )
-  #   @message.save
-  #   redirect_to messages_path
-  # end
 end

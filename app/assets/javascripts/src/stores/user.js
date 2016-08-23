@@ -62,26 +62,4 @@ usersStore.dispatchToken = Dispatcher.register(payload => {
   }
   return true
 })
-
-//   const actions = {
-//     setCurrentUserInfo(payload) {
-//       usersStore.setCurrentUser(payload.action.json)
-//       usersStore.emitChange()
-//     },
-//     setAllUsers(payload) {
-//       usersStore.setUsersList(payload.action.json)
-//       usersStore.emitChange()
-//     },
-//     setChatFriends(payload) {
-//       usersStore.setChatFriendsList(payload.action.json)
-//       usersStore.emitChange()
-//     },
-//     // updateUserCreatedAt(payload) {
-//     //   const currentUserData = usersStore.getCurrentUser()
-//     //   currentUserData.updated_at = payload.action.updated_at
-//     //   usersStore.emitChange()
-//     // },
-//   }
-//   actions[payload.action.type] && actions[payload.action.type](payload)
-// })
 export default usersStore

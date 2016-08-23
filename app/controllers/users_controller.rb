@@ -15,16 +15,8 @@ class UsersController < ApplicationController
     redirect_to messages_path
   end
 
-  # def updatedAt
-  #   @user = current_user
-  #   @user.touch
-  #   @user.save
-  #   redirect_to messages_path
-  # end
-
-  # def index
-  #   @user = User.all
-  # end
+  def index
+  end
 
   private
     def correct_user
