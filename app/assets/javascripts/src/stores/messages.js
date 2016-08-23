@@ -61,7 +61,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
     case ActionTypes.SEND_IMAGE:
       {
         const messages = MessagesStore.getMessages()
-        messages.push(action.messages)
+        messages.push(action.image)
       }
       MessagesStore.emitChange()
       break

@@ -13,7 +13,6 @@ export default {
     request
     .post(APIEndpoints.MESSAGES)
     .send({content: message, to_user_id: toUserID})
-    // .send({jsonData: message})
     .set('X-CSRF-Token', CSRFToken())
     .end(function(err, res) {
       if (res.ok) {
@@ -22,10 +21,6 @@ export default {
         Dispatcher.handleViewAction({ // jsonDataの変更を反映させる
           type: ActionTypes.SEND_MESSAGE,
           message: jsonData,
-          // userID: jsonData.user_id,
-          // message: jsonData.content,
-          // toUserID: jsonData.to_user_id,
-          // createdAt: jsonData.created_at,
         })
       } else {
         console.error('error', err)
@@ -44,10 +39,7 @@ export default {
         const jsonData = JSON.parse(res.text)
         Dispatcher.handleViewAction({
           type: ActionTypes.SEND_IMAGE,
-          image: jsonData.image,
-          userID: jsonData.user_id,
-          toUserID: jsonData.to_user_id,
-          createdAt: jsonData.created_at,
+          image: jsonData,
         })
       } else {
         console.error('error', err)
