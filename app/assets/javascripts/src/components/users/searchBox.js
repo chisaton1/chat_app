@@ -7,6 +7,7 @@ export default class SearchBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.initialState
+    // TODO: 変数化しない
     this.updateTypedValue = this.updateTypedValue.bind(this)
   }
   get initialState() {
@@ -36,8 +37,8 @@ export default class SearchBox extends React.Component {
     })
   }
   render() {
-    let userImage
     const list = this.state.usersList.map((user) => {
+      let userImage
       if (user.image == null) {
         userImage = `/user_images/no-image.gif`
       } else {

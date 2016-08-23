@@ -15,6 +15,7 @@ class ReplyBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.initialState
+    // ここでbindせずにrenderの中でbindする
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.updateValue = this.updateValue.bind(this)
     this.updateImage = this.updateImage.bind(this)
@@ -26,7 +27,9 @@ class ReplyBox extends React.Component {
     }
   }
   handleKeyDown(e) {
+    // TODO: ComponentのgetStateFromStores以外はStoreにアクセスしない
     const recipientID = MessagesStore.getOpenChatUserID()
+    // const noUserFlag = _.empty(this.props.users)
     // recipientIDが-1の時はチャットするユーザーが選択されていないとき
     if (e.keyCode === 13 && recipientID !== -1) {
       MessagesAction.sendMessage(

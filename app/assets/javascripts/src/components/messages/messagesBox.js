@@ -8,21 +8,25 @@ class MessagesBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.initialState
+    // this.onStoreChange = this.onStoreChange.bind(this)
   }
   get initialState() {
     return this.getStateFromStore()
   }
   getStateFromStore() {
+    // Stateは基本的にルートコンポーネントでgetする
     return {
       messages: MessagesStore.getMessages(),
       currentUser: UsersStore.getCurrentUser(),
     } // stateは連想配列でないとダメらしい
   }
   componentWillMount() {
+    // MessagesStore.onChange(this.onStoreChange)
     MessagesStore.onChange(this.onStoreChange.bind(this))
     UsersStore.onChange(this.onStoreChange.bind(this))
   }
   componentWillUnmount() {
+    // MessagesStore.offChange(this.onStoreChange)
     MessagesStore.offChange(this.onStoreChange.bind(this))
     UsersStore.offChange(this.onStoreChange.bind(this))
   }
@@ -34,6 +38,8 @@ class MessagesBox extends React.Component {
       this.state.currentUser.id, MessagesStore.getOpenChatUserID()
     )
     // superAgent使ってopenChatID渡してそれに該当するデータを取ってきてもらったほうが早いかもなぁ...
+    // TODO: msgに代入せずに、直接ぶちこもう
+    // TODO: cじゃなくてmessageにする
     const msg = messages.map((c, index) => {
       const messageClasses = classNames({
         'message-box__item': true,
@@ -41,7 +47,7 @@ class MessagesBox extends React.Component {
         'clear': true,
       })
       let contentOrMessage
-      if (c.content != null) {
+      if (c.content != null) { // TODO: if (c.content) {
         contentOrMessage = c.content
       } else {
         contentOrMessage = <img src={ `/user_images/${c.image}` } />

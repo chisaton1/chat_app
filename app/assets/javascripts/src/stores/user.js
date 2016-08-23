@@ -17,8 +17,10 @@ class UsersStore extends BaseStore {
   setUsersList(array) {
     this.set('usersList', array)
   }
+  // TODO: findUsersByNameとかのほうがいい。引数はnameで。
   findNameFromUsersList(typeString) {
     return this.getUsersList().filter((user) => {
+      // TODO: user.name.match(name)
       if (user.name.indexOf(typeString) >= 0) {
         return user
       }
@@ -31,9 +33,11 @@ class UsersStore extends BaseStore {
   setChatFriendsList(array) {
     this.set('chatFriendsList', array)
   }
+  // TODO: 削除
   addChangeListener(callback) {
     this.on('change', callback)
   }
+  // TODO: 削除
   removeChangeListener(callback) {
     this.off('change', callback)
   }
