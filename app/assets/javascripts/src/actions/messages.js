@@ -9,6 +9,7 @@ export default {
       userID: newUserID,
     })
   },
+
   sendMessage(message, toUserID) {
     request
     .post(APIEndpoints.MESSAGES)
@@ -16,12 +17,12 @@ export default {
     .set('X-CSRF-Token', CSRFToken())
     .end(function(err, res) {
       if (res.ok) {
-        // ここのデータはmessages_controllerのrender
-        const jsonData = JSON.parse(res.text)
+        // ここ(res)のデータはmessages_controllerのrender
+        const json = JSON.parse(res.text)
         // jsonDataの変更を反映させる
-        Dispatcher.handleViewAction({
+        Dispatcher.handleServerAction({
           type: ActionTypes.SEND_MESSAGE,
-          message: jsonData, // TODO: json: jsonData
+          json, // これで json: jsonと同じ意味らしい
         })
       } else {
         console.error('error', err)
@@ -29,35 +30,34 @@ export default {
     })
   },
 
-  // TODO: delete userId
-  sendImage(userID, image, toUserID) {
+  sendImage(image, toUserID) {
     request
     .post(APIEndpoints.MESSAGES)
     .set('X-CSRF-Token', CSRFToken())
-    .field('user_id', userID)
     .field('to_user_id', toUserID)
     .attach('image', image)
     .end(function(err, res) {
       if (res.ok) {
-        const jsonData = JSON.parse(res.text)
-        Dispatcher.handleViewAction({
+        const json = JSON.parse(res.text)
+        Dispatcher.handleServerAction({
           type: ActionTypes.SEND_IMAGE,
-          image: jsonData, // TODO: json: jsonData
+          json,
         })
       } else {
         console.error('error', err)
       }
     })
   },
+  
   getAllContents() {
     request
     .get(APIEndpoints.MESSAGES)
     .end(function(err, res) {
       if (res.ok) {
         const json = JSON.parse(res.text)
-        Dispatcher.handleViewAction({
+        Dispatcher.handleServerAction({
           type: ActionTypes.SET_ALL_CONTENTS,
-          json: json, // MEMO: (json: json) eq json
+          json,
         })
       } else {
         console.error('error', err)

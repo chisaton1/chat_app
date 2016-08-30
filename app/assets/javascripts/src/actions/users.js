@@ -9,7 +9,7 @@ export default {
     .end(function(err, res) {
       if (res.ok) {
         const json = JSON.parse(res.text)
-        Dispatcher.handleViewAction({ // TODO: APIのhandlerはhandleServerAction
+        Dispatcher.handleServerAction({
           type: ActionTypes.SET_CURRENT_USER_INFO,
           json: json,
         })
@@ -24,7 +24,7 @@ export default {
     .end(function(err, res) {
       if (res.ok) {
         const json = JSON.parse(res.text)
-        Dispatcher.handleViewAction({
+        Dispatcher.handleServerAction({
           type: ActionTypes.SET_ALL_USERS,
           json: json,
         })
@@ -39,7 +39,7 @@ export default {
     .end(function(err, res) {
       if (res.ok) {
         const json = JSON.parse(res.text)
-        Dispatcher.handleViewAction({
+        Dispatcher.handleServerAction({
           type: ActionTypes.SET_CHAT_FRIENDS,
           json: json,
         })

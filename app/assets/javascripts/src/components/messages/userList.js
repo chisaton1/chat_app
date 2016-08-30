@@ -4,101 +4,51 @@ import MessagesStore from '../../stores/messages'
 import UsersStore from '../../stores/user'
 import MessagesAction from '../../actions/messages'
 import {CSRFToken} from '../../constants/app'
+import _ from 'lodash'
 
 class UserList extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = this.initialState
-  }
-  get initialState() {
-    return this.getStateFromStore()
-  }
-  getStateFromStore() {
-    const friendsList = UsersStore.getChatFriendsList()
-    return {
-      openChatID: (friendsList.length === 0) ? -1 : MessagesStore.getOpenChatUserID(),
-      chatFriendsList: UsersStore.getChatFriendsList(),
-    }
-  }
-  componentWillMount() {
-    MessagesStore.onChange(this.onStoreChange.bind(this))
-    UsersStore.onChange(this.onStoreChange.bind(this))
-  }
-  componentWillUnmount() {
-    MessagesStore.offChange(this.onStoreChange.bind(this))
-    UsersStore.offChange(this.onStoreChange.bind(this))
-  }
-  onStoreChange() {
-    this.setState(this.getStateFromStore())
-  }
+
   changeOpenChat(id) {
     MessagesAction.changeOpenChat(id)
-    // this.updateUserCreatedAt()
   }
-  // updateUserCreatedAt() {
-  //   UsersAction.updateUserCreatedAt()
-  // }
-  render() {
-    // ユーザーリストのソート
-    // MEMO: SQL側でsortするのがパフォーマンス的に理想
-    // TODO: 別の変数を用意して代入（破壊的な挙動は基本的にしない）
-    this.state.chatFriendsList.sort((a, b) => {
-      const lastContentA = MessagesStore.getLastContent(a.id)
-      const lastContentB = MessagesStore.getLastContent(b.id)
-      if (!lastContentA || !lastContentB) return 0
-      if (lastContentA.created_at > lastContentB.created_at) return -1
-      if (lastContentA.created_at < lastContentB.created_at) return 1
-      return 0
-    })
 
-    // TODO: userListComponentsとかに変数名変えたほうがいいかな
-    const messages = this.state.chatFriendsList.map((friend, index) => {
-      // const lastMessage = MessagesStore.getLastContent(friend.id) || []
+  render() {
+    const userListComponents = this.props.chatFriendsList.map((friend) => {
       let lastMessage = MessagesStore.getLastContent(friend.id)
       let messageOrImage
       if (!lastMessage) {
-        // TODO: lastMessage = {} ??
-        lastMessage = [] // 空（何もメッセージが無い）とき
+        lastMessage = {} // 空（何もメッセージが無い）とき
       } else {
-        // TODO: || '画像が投稿されました'
-        if (lastMessage.content == null) {
-          messageOrImage = '画像が投稿されました'
-        } else {
-          messageOrImage = lastMessage.content
-        }
+        messageOrImage = lastMessage.content || '画像が投稿されました'
       }
       let lastMessageDate
-      // TODO: if (_.isEmpty(lastMessage))とか使えるかも
-      if (lastMessage.length !== 0) {
-        lastMessageDate = new Date(lastMessage.created_at).toLocaleString()
-      } else {
-        lastMessageDate = ''
-      }
       let statusIcon
-      // TODO: ロジックの改善
-      if (lastMessage.user_id !== friend.id) {
-        statusIcon = (
-          <i className='fa fa-reply user-list__item__icon' />
-        )
+      if (_.isEmpty(lastMessage)) {
+        lastMessageDate = ''
+        statusIcon = <i/>
+      } else {
+        lastMessageDate = new Date(lastMessage.created_at).toLocaleString()
+        if (lastMessage.user_id === friend.id) {
+          statusIcon = (
+            <i className='fa fa-circle user-list__item__icon' />
+          )
+        } else {
+          statusIcon = (
+            <i className='fa fa-reply user-list__item__icon' />
+          )
+        }
       }
-      if (lastMessage.user_id === friend.id) {
-        statusIcon = (
-          <i className='fa fa-circle user-list__item__icon' />
-        )
-      }
-      if (lastMessage.length === 0) statusIcon = <i/>
       const itemClasses = classNames({
         'user-list__item': true,
         'clear': true,
         'user-list__item--new': true,
-        'user-list__item--active': this.state.openChatID === friend.id,
+        'user-list__item--active': this.props.openChatID === friend.id,
       })
-      // TODO: let
-      var userImage
-      if (friend.image == null) {
-        userImage = `/user_images/no-image.gif`
-      } else {
+      let userImage
+      if (friend.image) {
         userImage = `/user_images/${friend.image}`
+      } else {
+        userImage = `/user_images/no-image.gif`
       }
       return (
         <li
@@ -132,7 +82,7 @@ class UserList extends React.Component {
     return (
       <div className='user-list'>
         <ul className='user-list__list'>
-            { messages }
+            { userListComponents }
         </ul>
       </div>
     )

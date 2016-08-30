@@ -4,8 +4,7 @@ import App from '../components/messages/app'
 import MessagesAction from '../actions/messages'
 import UsersAction from '../actions/users'
 
-// TODO: MessageRouter
-export default class CardRouter extends BaseRouter {
+export default class MessageRouter extends BaseRouter {
   register() {
     this.route('/messages', this.decorateApp, this.setAllData)
   }

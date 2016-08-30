@@ -3,43 +3,39 @@ import BaseStore from '../base/store'
 import {ActionTypes} from '../constants/app'
 
 class UsersStore extends BaseStore {
+
   getCurrentUser() {
     if (!this.get('currentUser')) this.setCurrentUser([])
     return this.get('currentUser')
   }
+
   setCurrentUser(array) {
     this.set('currentUser', array)
   }
+
   getUsersList() {
     if (!this.get('usersList')) this.setUsersList([])
     return this.get('usersList')
   }
+
   setUsersList(array) {
     this.set('usersList', array)
   }
-  // TODO: findUsersByNameとかのほうがいい。引数はnameで。
-  findNameFromUsersList(typeString) {
+
+  findUserByName(name) {
     return this.getUsersList().filter((user) => {
-      // TODO: user.name.match(name)
-      if (user.name.indexOf(typeString) >= 0) {
+      if (user.name.match(name)) {
         return user
       }
     })
   }
+
   getChatFriendsList() {
     if (!this.get('chatFriendsList')) this.setChatFriendsList([])
     return this.get('chatFriendsList')
   }
   setChatFriendsList(array) {
     this.set('chatFriendsList', array)
-  }
-  // TODO: 削除
-  addChangeListener(callback) {
-    this.on('change', callback)
-  }
-  // TODO: 削除
-  removeChangeListener(callback) {
-    this.off('change', callback)
   }
 }
 

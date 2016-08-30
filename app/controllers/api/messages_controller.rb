@@ -17,7 +17,7 @@ class Api::MessagesController < ApplicationController
       File.open("public/user_images/#{file_name}", 'wb'){|f| f.write(file.read)}
       @message = Message.new(
         image: file_name,
-        user_id: params[:user_id],
+        user_id: current_user.id,
         to_user_id: params[:to_user_id]
       )
     end

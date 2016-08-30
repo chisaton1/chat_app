@@ -1,41 +1,46 @@
 import React from 'react'
 import UsersStore from '../../stores/user'
 import {CSRFToken} from '../../constants/app'
-// import MessagesAction from '../../actions/messages'
 
 export default class SearchBox extends React.Component {
+
   constructor(props) {
     super(props)
     this.state = this.initialState
-    // TODO: 変数化しない
-    this.updateTypedValue = this.updateTypedValue.bind(this)
   }
+
   get initialState() {
     return {
       typedValue: '',
       usersList: [],
     }
   }
+
   componentWillMount() {
     UsersStore.onChange(this.onStoreChange.bind(this))
   }
+
   componentWillUnmount() {
     UsersStore.offChange(this.onStoreChange.bind(this))
   }
+
   onStoreChange() {
     this.setState(this.getStateFromStore())
   }
+
   getStateFromStore() {
     return {
       usersList: UsersStore.getUsersList(),
     }
   }
+
   updateTypedValue(e) {
     this.setState({
       typedValue: e.target.value,
-      usersList: UsersStore.findNameFromUsersList(e.target.value),
+      usersList: UsersStore.findUserByName(e.target.value),
     })
   }
+
   render() {
     const list = this.state.usersList.map((user) => {
       let userImage
@@ -75,7 +80,7 @@ export default class SearchBox extends React.Component {
         <div className='reply-box search-box'>
           <input
             value={ this.state.typedValue }
-            onChange={ this.updateTypedValue }
+            onChange={ this.updateTypedValue.bind(this) }
             className='reply-box__input'
             placeholder='Search users'
           />
