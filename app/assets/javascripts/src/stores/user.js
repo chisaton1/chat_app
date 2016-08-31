@@ -5,7 +5,7 @@ import {ActionTypes} from '../constants/app'
 class UsersStore extends BaseStore {
 
   getCurrentUser() {
-    if (!this.get('currentUser')) this.setCurrentUser([])
+    if (!this.get('currentUser')) this.setCurrentUser({})
     return this.get('currentUser')
   }
 
@@ -62,4 +62,5 @@ usersStore.dispatchToken = Dispatcher.register(payload => {
   }
   return true
 })
+window.usersStore = usersStore
 export default usersStore

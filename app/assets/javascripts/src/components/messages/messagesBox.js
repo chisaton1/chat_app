@@ -6,6 +6,13 @@ import UsersStore from '../../stores/user'
 
 class MessagesBox extends React.Component {
 
+  static get propTypes() {
+    return {
+      messages: React.PropTypes.array,
+      currentUser: React.PropTypes.object,
+    }
+  }
+
   render() {
     const {messages, currentUser} = this.props // これでいちいちthis.propsする必要なし
     return (

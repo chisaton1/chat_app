@@ -8,6 +8,13 @@ import _ from 'lodash'
 
 class UserList extends React.Component {
 
+  static get propTypes() {
+    return {
+      openChatID: React.PropTypes.number,
+      chatFriendsList: React.PropTypes.array,
+    }
+  }
+
   changeOpenChat(id) {
     MessagesAction.changeOpenChat(id)
   }

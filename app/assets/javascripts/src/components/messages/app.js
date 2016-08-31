@@ -9,7 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.initialState
-    this.onStoreChange = this.onStoreChange.bind(this)
+    this.onStoreChangeHandler = this.onStoreChange.bind(this)
   }
 
   get initialState() {
@@ -20,9 +20,8 @@ class App extends React.Component {
     const currentUser = UsersStore.getCurrentUser()
     // まだcurrentUserが設定されてなければ空のオブジェクトを返す
     if (!currentUser) return {}
-    const friendsList = UsersStore.getChatFriendsList()
-    let chatList = friendsList ? friendsList : []
-    chatList = chatList.slice().sort((a, b) => {
+    let chatList = UsersStore.getChatFriendsList() || []
+    chatList.sort((a, b) => {
       const lastContentA = MessagesStore.getLastContent(a.id)
       const lastContentB = MessagesStore.getLastContent(b.id)
       if (!lastContentA && !lastContentB) return 0
@@ -35,46 +34,32 @@ class App extends React.Component {
     if (MessagesStore.getOpenChatID() === -1) {
       MessagesStore.setOpenChatID(chatList[0] ? chatList[0].id : -1)
     }
-    // MessagesStore.setOpenChatID( ? chatList[0].id : -1)
     const messages = MessagesStore.getContentsByUserIDs(
       currentUser.id, MessagesStore.getOpenChatID()
     )
 
     return {
-      messages: messages,
-      currentUser: currentUser,
-      value: '',
-      image: {},
+      messages,
+      currentUser,
       openChatID: MessagesStore.getOpenChatID(),
       chatFriendsList: chatList,
     }
   }
 
   componentWillMount() {
-    MessagesStore.onChange(this.onStoreChange)
-    UsersStore.onChange(this.onStoreChange)
+    MessagesStore.onChange(this.onStoreChangeHandler)
+    UsersStore.onChange(this.onStoreChangeHandler)
   }
 
   onStoreChange() {
     this.setState(this.getStateFromStore())
   }
 
-  changeValue(newValue) {
-    this.setState({ value: newValue })
-  }
-
-  changeImage(newImage) {
-    this.setState({ image: newImage })
-  }
-
   render() {
     return (
       <div className='app'>
         <UserList {...this.state} />
-        <MessagesBox {...this.state}
-         onChangeValue={this.changeValue.bind(this)}
-         onChangeImage={this.changeImage.bind(this)}
-        />
+        <MessagesBox {...this.state} />
       </div>
     )
   }
