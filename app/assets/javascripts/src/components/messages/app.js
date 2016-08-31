@@ -32,7 +32,10 @@ class App extends React.Component {
       if (lastContentA.created_at < lastContentB.created_at) return 1
       return 0
     })
-    MessagesStore.setOpenChatID(chatList[0] ? chatList[0].id : -1)
+    if (MessagesStore.getOpenChatID() === -1) {
+      MessagesStore.setOpenChatID(chatList[0] ? chatList[0].id : -1)
+    }
+    // MessagesStore.setOpenChatID( ? chatList[0].id : -1)
     const messages = MessagesStore.getContentsByUserIDs(
       currentUser.id, MessagesStore.getOpenChatID()
     )
